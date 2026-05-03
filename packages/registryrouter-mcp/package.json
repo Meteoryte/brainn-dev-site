@@ -19,7 +19,8 @@
     "classify": "node ./bin/registryrouter-cli.js classify",
     "resolve": "node ./bin/registryrouter-cli.js resolve",
     "preflight": "node ./bin/registryrouter-cli.js preflight",
-    "smoke": "node ./bin/registryrouter-cli.js preflight \"Add auth to a Next.js app with Postgres and Vercel\" --stack Next.js,Postgres,Vercel"
+    "smoke": "node ./bin/registryrouter-cli.js preflight \"Add auth to a Next.js app with Postgres and Vercel\" --stack Next.js,Postgres,Vercel",
+    "validate": "node ./bin/validate-catalog.js"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.0",

@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Try RegistryRouter — Brainn.dev</title>
+  <meta name="description" content="Browser demo for RegistryRouter: classify a task and generate a preflight source report. Runs entirely in the browser using the static catalog." />
+  <link rel="canonical" href="https://brainn.dev/try.html" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .demo-notice {
+      border: 1px solid rgba(255, 209, 102, 0.3);
+      background: rgba(255, 209, 102, 0.06);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      color: var(--warn);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .demo-notice strong { color: var(--warn); }
+    .demo-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .demo-form label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .demo-form input, .demo-form select {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(13, 20, 38, 0.9);
+      color: var(--text);
+      font-size: 15px;
+      font-family: var(--sans);
+      outline: none;
+    }
+    .demo-form input:focus, .demo-form select:focus {
+      border-color: rgba(80, 227, 164, 0.48);
+    }
+    .demo-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    .demo-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.055);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: var(--sans);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .demo-btn:hover {
+      border-color: rgba(80, 227, 164, 0.48);
+      background: rgba(80, 227, 164, 0.06);
+    }
+    .demo-btn.primary {
+      border-color: rgba(80, 227, 164, 0.48);
+      color: #03120c;
+      background: linear-gradient(135deg, var(--accent), #b7f7d2);
+    }
+    .demo-btn.primary:hover {
+      opacity: 0.9;
+    }
+    .demo-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .demo-output {
+      margin-top: 20px;
+    }
+    .demo-output .terminal { margin-top: 14px; }
+    #outputPre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: #dfe8f7;
+      font-size: 13px;
+      min-height: 48px;
+    }
+    .status-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--faint);
+      margin-top: 10px;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--faint);
+      flex: 0 0 auto;
+    }
+    .status-dot.ready { background: var(--accent); }
+    .status-dot.error { background: var(--danger); }
+    .tag-list {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    .tag {
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      font-size: 12px;
+      color: var(--faint);
+      background: rgba(255,255,255,0.03);
+      cursor: pointer;
+      font-family: var(--mono);
+    }
+    .tag:hover { border-color: rgba(80, 227, 164, 0.3); color: var(--accent); }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-inner">
+      <a class="brand" href="index.html"><span class="brand-mark">B</span><span>brainn.dev</span></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="atlas.html">Atlas</a>
+        <a href="mcp.html">MCP</a>
+        <a class="active" href="try.html">Try</a>
+        <a href="examples.html">Examples</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="site-shell">
+    <section class="page-title">
+      <span class="eyebrow">Browser demo</span>
+      <h1>Try RegistryRouter in the browser.</h1>
+      <p>Describe a development task and RegistryRouter will classify the source layer, identify authoritative registries, and list required checks — all from a static catalog, entirely in your browser.</p>
+    </section>
+
+    <div class="demo-notice">
+      <strong>This is a browser demo, not the MCP server.</strong> It runs plain JavaScript against the static catalog. The full MCP server runs locally via Node.js — see the <a href="mcp.html" style="color:var(--warn);text-decoration:underline">MCP page</a> for local setup instructions.
+    </div>
+
+    <section class="section" style="padding-top:0">
+      <div class="grid-2" style="gap:24px;align-items:start">
+        <div>
+          <div class="demo-form">
+            <div>
+              <label for="taskInput">Task description</label>
+              <input
+                id="taskInput"
+                type="text"
+                placeholder="e.g. Add Stripe subscriptions to a Next.js app"
+                maxlength="300"
+                autocomplete="off"
+                spellcheck="false"
+              />
+            </div>
+            <div>
+              <label for="stackInput">Stack (optional, comma-separated)</label>
+              <input
+                id="stackInput"
+                type="text"
+                placeholder="e.g. Next.js, Postgres, Vercel"
+                maxlength="200"
+                autocomplete="off"
+                spellcheck="false"
+              />
+            </div>
+            <div>
+              <label>Example tasks</label>
+              <div class="tag-list">
+                <span class="tag" data-task="Add Stripe subscriptions" data-stack="Next.js,Vercel">Stripe subscriptions</span>
+                <span class="tag" data-task="Add user authentication with OAuth" data-stack="Next.js,Postgres">Auth + OAuth</span>
+                <span class="tag" data-task="Install a React date picker component" data-stack="React,Tailwind">React date picker</span>
+                <span class="tag" data-task="Deploy a container to Kubernetes" data-stack="Docker,Kubernetes">Container deploy</span>
+                <span class="tag" data-task="Set up error monitoring" data-stack="Next.js">Error monitoring</span>
+                <span class="tag" data-task="Add an MCP tool server" data-stack="Node.js">MCP tool server</span>
+                <span class="tag" data-task="Set up Terraform for AWS infrastructure" data-stack="AWS,Terraform">Terraform + AWS</span>
+                <span class="tag" data-task="Add Python packages for machine learning" data-stack="Python">Python ML packages</span>
+              </div>
+            </div>
+            <div class="demo-actions">
+              <button class="demo-btn primary" id="classifyBtn" type="button">Classify task</button>
+              <button class="demo-btn" id="preflightBtn" type="button">Generate preflight</button>
+              <button class="demo-btn" id="clearBtn" type="button">Clear</button>
+            </div>
+          </div>
+          <div class="status-row">
+            <span class="status-dot" id="statusDot"></span>
+            <span id="statusText">Loading catalog…</span>
+          </div>
+        </div>
+
+        <div class="demo-output">
+          <article class="terminal">
+            <div class="terminal-bar">
+              <span id="outputLabel">output</span>
+              <span class="dot-row"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span>
+            </div>
+            <div class="terminal-body">
+              <pre id="outputPre">Enter a task above and click Classify or Generate Preflight.</pre>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="callout">
+        <div class="callout-icon">!</div>
+        <div>
+          <strong>Browser demo limitations:</strong> This demo uses a simplified in-browser implementation of the RegistryRouter classification and resolution logic. The full MCP server runs as a Node.js stdio server and supports additional tools, policy files, and all MCP protocol features. <a href="mcp.html" style="color:var(--accent)">Set up the local server →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="site-shell">RegistryRouter MCP is the source-routing layer for AI coding agents.</div></footer>
+
+  <script>
+    const CATALOG_PATH = "packages/registryrouter-mcp/data/catalog.json";
+
+    const AUTHORITY_SCORE = {
+      official_install_source: 30,
+      official_docs_source: 28,
+      official_marketplace: 24,
+      trusted_discovery_source: 16,
+      community_reference: 8,
+      internal_policy_source: 30,
+      historical_only: -20,
+      unknown: 0
+    };
+
+    const COST_SCORE = {
+      free_open: 8,
+      freemium: 4,
+      paid_commercial: 1,
+      mixed_marketplace: 2,
+      deprecated_caution: -20,
+      internal_private: 8,
+      unknown_verify: 0
+    };
+
+    const HIGH_RISK_LAYERS = new Set([
+      "auth_identity",
+      "payments_billing",
+      "infrastructure_platform",
+      "security_compliance",
+      "ai_models_tools"
+    ]);
+
+    let catalog = null;
+
+    async function loadCatalog() {
+      const res = await fetch(CATALOG_PATH);
+      if (!res.ok) throw new Error(`Failed to load catalog: ${res.status}`);
+      return res.json();
+    }
+
+    function classifyTask(task, stack, cat) {
+      const text = `${task} ${stack.join(" ")}`.toLowerCase();
+      const layerScores = cat.layers.map((layer) => {
+        let score = 0;
+        const matches = [];
+        for (const kw of layer.keywords ?? []) {
+          const nkw = kw.toLowerCase();
+          if (text.includes(nkw)) {
+            score += nkw.includes(" ") ? 3 : 2;
+            matches.push(kw);
+          }
+        }
+        return { layer, score, matches };
+      }).sort((a, b) => b.score - a.score);
+
+      const top = layerScores[0];
+      const primaryLayer = top?.score > 0 ? top.layer.id : "packages_dependencies";
+      const secondaryLayers = layerScores
+        .filter(item => item.layer.id !== primaryLayer && item.score > 0)
+        .slice(0, 3)
+        .map(item => item.layer.id);
+
+      const confidence = top?.score > 0 ? Math.min(0.95, 0.45 + top.score * 0.08) : 0.35;
+
+      return {
+        primary_layer: primaryLayer,
+        primary_layer_label: cat.layers.find(l => l.id === primaryLayer)?.label ?? primaryLayer,
+        secondary_layers: secondaryLayers,
+        confidence: Number(confidence.toFixed(2)),
+        matched_terms: top?.matches ?? [],
+        human_approval_default: HIGH_RISK_LAYERS.has(primaryLayer)
+      };
+    }
+
+    function resolveRegistry(task, stack, cat) {
+      const cls = classifyTask(task, stack, cat);
+      const stackText = stack.join(" ").toLowerCase();
+
+      const candidates = cat.registries.map((reg) => {
+        const layerMatch = reg.layer === cls.primary_layer ? 40 : cls.secondary_layers.includes(reg.layer) ? 18 : 0;
+        const authorityScore = AUTHORITY_SCORE[reg.authority_level] ?? 0;
+        const costScore = COST_SCORE[reg.cost_model] ?? 0;
+        const tagScore = (reg.tags ?? []).reduce((sum, tag) => stackText.includes(tag.toLowerCase()) ? sum + 4 : sum, 0);
+        return { reg, score: layerMatch + authorityScore + costScore + tagScore };
+      }).filter(item => item.score > 0).sort((a, b) => b.score - a.score);
+
+      return {
+        classification: cls,
+        recommended_sources: candidates.slice(0, 3).map(({ reg, score }) => ({ ...reg, fit_score: score })),
+        fallback_sources: candidates.slice(3, 5).map(({ reg, score }) => ({ ...reg, fit_score: score }))
+      };
+    }
+
+    function renderClassify(task, stack, cat) {
+      const cls = classifyTask(task, stack, cat);
+      const lines = [
+        `// RegistryRouter · classify`,
+        ``,
+        `Task:            ${task}`,
+        stack.length ? `Stack:           ${stack.join(", ")}` : null,
+        ``,
+        `Primary layer:   ${cls.primary_layer_label} (${cls.primary_layer})`,
+        cls.secondary_layers.length ? `Secondary layers: ${cls.secondary_layers.join(", ")}` : null,
+        `Confidence:      ${cls.confidence}`,
+        cls.matched_terms.length ? `Matched terms:   ${cls.matched_terms.join(", ")}` : null,
+        ``,
+        `Human approval:  ${cls.human_approval_default ? "Yes — high-risk layer" : "Not required by default"}`
+      ].filter(line => line !== null);
+      return lines.join("\n");
+    }
+
+    function renderPreflight(task, stack, cat) {
+      const res = resolveRegistry(task, stack, cat);
+      const cls = res.classification;
+
+      const sourceLines = res.recommended_sources.length
+        ? res.recommended_sources.map(s => `  - ${s.name} [${s.cost_model}]\n    ${s.best_for}\n    ${s.url}`).join("\n")
+        : "  - No matching source found in the current catalog.";
+
+      const fallbackLines = res.fallback_sources.length
+        ? res.fallback_sources.map(s => `  - ${s.name} [${s.cost_model}]`).join("\n")
+        : "  - None identified.";
+
+      const riskChecks = [...new Set(
+        res.recommended_sources.flatMap(s => s.risk_checks ?? [])
+      )].slice(0, 8).map(c => `  - ${c.replaceAll("_", " ")}`).join("\n");
+
+      const lines = [
+        `# RegistryRouter Preflight Report`,
+        `## Task`,
+        task,
+        ``,
+        `## Classification`,
+        `  Primary layer:   ${cls.primary_layer_label}`,
+        cls.secondary_layers.length ? `  Secondary layers: ${cls.secondary_layers.join(", ")}` : null,
+        `  Confidence:      ${cls.confidence}`,
+        ``,
+        `## Recommended sources`,
+        sourceLines,
+        ``,
+        `## Fallback sources`,
+        fallbackLines,
+        ``,
+        `## Required checks`,
+        riskChecks || "  - authority, license, maintenance, version_compatibility",
+        ``,
+        `## Human approval`,
+        cls.human_approval_default ? "  Required — high-risk layer." : "  Not required by default policy."
+      ].filter(line => line !== null);
+
+      return lines.join("\n");
+    }
+
+    function setStatus(state, text) {
+      const dot = document.getElementById("statusDot");
+      dot.className = `status-dot ${state}`;
+      document.getElementById("statusText").textContent = text;
+    }
+
+    function setOutput(label, text) {
+      document.getElementById("outputLabel").textContent = label;
+      document.getElementById("outputPre").textContent = text;
+    }
+
+    function getInputs() {
+      const task = document.getElementById("taskInput").value.trim();
+      const stackRaw = document.getElementById("stackInput").value.trim();
+      const stack = stackRaw ? stackRaw.split(",").map(s => s.trim()).filter(Boolean) : [];
+      return { task, stack };
+    }
+
+    document.getElementById("classifyBtn").addEventListener("click", () => {
+      if (!catalog) { setOutput("error", "Catalog not loaded yet. Please wait."); return; }
+      const { task, stack } = getInputs();
+      if (!task) { setOutput("classify", "Please enter a task description."); return; }
+      setOutput("classify · " + task.slice(0, 40), renderClassify(task, stack, catalog));
+    });
+
+    document.getElementById("preflightBtn").addEventListener("click", () => {
+      if (!catalog) { setOutput("error", "Catalog not loaded yet. Please wait."); return; }
+      const { task, stack } = getInputs();
+      if (!task) { setOutput("preflight", "Please enter a task description."); return; }
+      setOutput("preflight · " + task.slice(0, 40), renderPreflight(task, stack, catalog));
+    });
+
+    document.getElementById("clearBtn").addEventListener("click", () => {
+      document.getElementById("taskInput").value = "";
+      document.getElementById("stackInput").value = "";
+      setOutput("output", "Enter a task above and click Classify or Generate Preflight.");
+    });
+
+    document.querySelectorAll(".tag[data-task]").forEach(tag => {
+      tag.addEventListener("click", () => {
+        document.getElementById("taskInput").value = tag.dataset.task;
+        document.getElementById("stackInput").value = tag.dataset.stack ?? "";
+      });
+    });
+
+    (async () => {
+      try {
+        catalog = await loadCatalog();
+        setStatus("ready", `Catalog loaded · ${catalog.registries.length} sources · ${catalog.layers.length} layers`);
+        document.getElementById("classifyBtn").disabled = false;
+        document.getElementById("preflightBtn").disabled = false;
+      } catch (err) {
+        setStatus("error", `Catalog load failed: ${err.message}`);
+        document.getElementById("classifyBtn").disabled = true;
+        document.getElementById("preflightBtn").disabled = true;
+      }
+    })();
+  </script>
+</body>
+</html>

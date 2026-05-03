@@ -51,6 +51,11 @@
       "id": "observability",
       "label": "Observability",
       "keywords": ["observability", "monitoring", "logging", "error", "sentry", "datadog", "opentelemetry", "metrics", "tracing"]
+    },
+    {
+      "id": "ci_cd",
+      "label": "CI/CD",
+      "keywords": ["ci", "cd", "ci/cd", "continuous integration", "continuous delivery", "pipeline", "workflow", "github actions", "gitlab ci", "circleci", "jenkins", "build", "release", "artifact", "automation"]
     }
   ],
   "registries": [
@@ -223,6 +228,177 @@
       "use_when": "Use when the team wants open standards for telemetry and has a destination/backend strategy.",
       "risk_checks": ["runtime_compatibility", "backend_choice", "data_access", "performance", "maintenance"],
       "tags": ["observability", "open-source", "tracing", "metrics"]
+    },
+    {
+      "id": "maven-central",
+      "name": "Maven Central",
+      "url": "https://central.sonatype.com",
+      "layer": "packages_dependencies",
+      "cost_model": "free_open",
+      "authority_level": "official_install_source",
+      "best_for": "Java and JVM packages",
+      "use_when": "Use for Java, Kotlin, Scala, Gradle, Maven, and SBT dependencies.",
+      "risk_checks": ["package_identity", "version_compatibility", "license", "security_advisories", "maintenance", "supply_chain"],
+      "tags": ["java", "kotlin", "jvm", "packages", "maven", "gradle"]
+    },
+    {
+      "id": "nuget",
+      "name": "NuGet",
+      "url": "https://www.nuget.org",
+      "layer": "packages_dependencies",
+      "cost_model": "free_open",
+      "authority_level": "official_install_source",
+      "best_for": ".NET packages",
+      "use_when": "Use for C#, F#, ASP.NET, MAUI, and .NET tooling dependencies.",
+      "risk_checks": ["package_identity", "version_compatibility", "license", "security_advisories", "maintenance"],
+      "tags": ["dotnet", "csharp", "fsharp", "packages"]
+    },
+    {
+      "id": "crates-io",
+      "name": "crates.io",
+      "url": "https://crates.io",
+      "layer": "packages_dependencies",
+      "cost_model": "free_open",
+      "authority_level": "official_install_source",
+      "best_for": "Rust crates",
+      "use_when": "Use for Rust libraries, CLIs, web services, and systems software.",
+      "risk_checks": ["package_identity", "version_compatibility", "license", "security_advisories", "maintenance", "supply_chain"],
+      "tags": ["rust", "packages", "cargo"]
+    },
+    {
+      "id": "github-packages",
+      "name": "GitHub Packages",
+      "url": "https://github.com/features/packages",
+      "layer": "packages_dependencies",
+      "cost_model": "freemium",
+      "authority_level": "official_install_source",
+      "best_for": "GitHub-native private package registry",
+      "use_when": "Use when source and package access should live with GitHub repos and orgs, or when publishing scoped private packages.",
+      "risk_checks": ["package_identity", "access_controls", "billing", "version_compatibility", "supply_chain"],
+      "tags": ["github", "packages", "private", "npm", "docker"]
+    },
+    {
+      "id": "github-container-registry",
+      "name": "GitHub Container Registry",
+      "url": "https://ghcr.io",
+      "layer": "containers_deployment",
+      "cost_model": "freemium",
+      "authority_level": "official_install_source",
+      "best_for": "GitHub-native OCI container registry",
+      "use_when": "Use for container images tied to GitHub repos and GitHub Actions workflows.",
+      "risk_checks": ["image_origin", "tag_pinning", "digest_pinning", "access_controls", "supply_chain"],
+      "tags": ["docker", "containers", "oci", "github"]
+    },
+    {
+      "id": "pulumi-registry",
+      "name": "Pulumi Registry",
+      "url": "https://www.pulumi.com/registry",
+      "layer": "infrastructure_platform",
+      "cost_model": "free_open",
+      "authority_level": "official_docs_source",
+      "best_for": "IaC SDK and provider registry for code-first infrastructure",
+      "use_when": "Use for cloud resources managed in TypeScript, Python, Go, C#, Java, or YAML with Pulumi.",
+      "risk_checks": ["provider_version", "cloud_permissions", "state_management", "rollback", "human_approval"],
+      "tags": ["pulumi", "iac", "infrastructure", "typescript", "python"]
+    },
+    {
+      "id": "artifact-hub",
+      "name": "Artifact Hub",
+      "url": "https://artifacthub.io",
+      "layer": "infrastructure_platform",
+      "cost_model": "free_open",
+      "authority_level": "trusted_discovery_source",
+      "best_for": "Cloud-native package discovery for Helm, operators, and more",
+      "use_when": "Use to discover Helm charts, OLM operators, Falco rules, Tekton tasks, and other cloud-native packages.",
+      "avoid_when": "Verify individual chart or operator quality and maintenance before adoption; discovery is not endorsement.",
+      "risk_checks": ["chart_values", "operator_permissions", "cluster_compatibility", "maintenance", "security_advisories"],
+      "tags": ["helm", "kubernetes", "operators", "cloud-native"]
+    },
+    {
+      "id": "github-actions-marketplace",
+      "name": "GitHub Actions Marketplace",
+      "url": "https://github.com/marketplace?type=actions",
+      "layer": "ci_cd",
+      "cost_model": "mixed_marketplace",
+      "authority_level": "official_marketplace",
+      "best_for": "GitHub Actions workflows, release automation, tests, and scanning",
+      "use_when": "Use for reusable GitHub Actions steps. Pin actions to a commit SHA or specific version tag.",
+      "avoid_when": "Do not use unpinned or unverified third-party actions in production workflows.",
+      "risk_checks": ["action_publisher", "version_pinning", "secrets_access", "permissions_scope", "fork_pr_safety", "supply_chain"],
+      "tags": ["github", "ci", "cd", "automation", "workflow"]
+    },
+    {
+      "id": "mantine",
+      "name": "Mantine",
+      "url": "https://mantine.dev",
+      "layer": "ui_frontend",
+      "cost_model": "free_open",
+      "authority_level": "official_docs_source",
+      "best_for": "Batteries-included React component library with hooks and forms",
+      "use_when": "Use when you want hooks, forms, charts, notifications, and UI components in a single cohesive package.",
+      "risk_checks": ["accessibility", "framework_compatibility", "bundle_impact", "visual_fit", "license"],
+      "tags": ["react", "components", "hooks", "forms", "typescript"]
+    },
+    {
+      "id": "apis-guru",
+      "name": "APIs.guru",
+      "url": "https://apis.guru",
+      "layer": "apis_integrations",
+      "cost_model": "free_open",
+      "authority_level": "trusted_discovery_source",
+      "best_for": "Machine-readable OpenAPI spec directory",
+      "use_when": "Use for OpenAPI 3.x definitions as codegen inputs or to verify API schemas. Always cross-check against official vendor docs.",
+      "avoid_when": "Do not treat as the final implementation authority — verify schemas against official vendor docs.",
+      "risk_checks": ["schema_authority", "spec_freshness", "vendor_verification"],
+      "tags": ["api", "openapi", "codegen", "discovery"]
+    },
+    {
+      "id": "hugging-face",
+      "name": "Hugging Face Hub",
+      "url": "https://huggingface.co/models",
+      "layer": "ai_models_tools",
+      "cost_model": "freemium",
+      "authority_level": "trusted_discovery_source",
+      "best_for": "Open AI model discovery, datasets, and inference APIs",
+      "use_when": "Use to discover open-weight models, datasets, and inference API endpoints for AI tasks.",
+      "risk_checks": ["model_license", "data_access", "inference_cost", "privacy", "output_safety", "human_approval"],
+      "tags": ["ai", "llm", "models", "datasets", "inference"]
+    },
+    {
+      "id": "snyk-advisor",
+      "name": "Snyk Advisor",
+      "url": "https://snyk.io/advisor",
+      "layer": "security_compliance",
+      "cost_model": "freemium",
+      "authority_level": "trusted_discovery_source",
+      "best_for": "Package health and security advisory lookup",
+      "use_when": "Use to check package health scores, security advisories, maintenance status, and popularity signals before adoption.",
+      "risk_checks": ["security_advisories", "maintenance", "license", "version_compatibility"],
+      "tags": ["security", "packages", "advisories", "health"]
+    },
+    {
+      "id": "osv-dev",
+      "name": "OSV.dev",
+      "url": "https://osv.dev",
+      "layer": "security_compliance",
+      "cost_model": "free_open",
+      "authority_level": "official_docs_source",
+      "best_for": "Open-source vulnerability database for package ecosystems",
+      "use_when": "Use to query security advisories across npm, PyPI, Maven, Cargo, Go, and other ecosystems.",
+      "risk_checks": ["security_advisories", "version_compatibility", "supply_chain"],
+      "tags": ["security", "vulnerabilities", "advisories", "open-source"]
+    },
+    {
+      "id": "datadog-docs",
+      "name": "Datadog Docs",
+      "url": "https://docs.datadoghq.com",
+      "layer": "observability",
+      "cost_model": "paid_commercial",
+      "authority_level": "official_docs_source",
+      "best_for": "Full-stack observability: metrics, logs, traces, and APM",
+      "use_when": "Use as the implementation authority for Datadog SDK setup, APM, log pipelines, dashboards, and alert configuration.",
+      "risk_checks": ["pricing", "data_access", "pii_scrubbing", "agent_permissions", "billing", "human_approval"],
+      "tags": ["observability", "monitoring", "apm", "logs", "metrics"]
     }
   ]
 }

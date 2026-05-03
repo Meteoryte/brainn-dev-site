@@ -9,6 +9,7 @@
     "registryrouter:classify": "node packages/registryrouter-mcp/bin/registryrouter-cli.js classify",
     "registryrouter:resolve": "node packages/registryrouter-mcp/bin/registryrouter-cli.js resolve",
     "registryrouter:preflight": "node packages/registryrouter-mcp/bin/registryrouter-cli.js preflight",
-    "registryrouter:smoke": "node packages/registryrouter-mcp/bin/registryrouter-cli.js preflight \"Add auth to a Next.js app with Postgres and Vercel\" --stack Next.js,Postgres,Vercel"
+    "registryrouter:smoke": "node packages/registryrouter-mcp/bin/registryrouter-cli.js preflight \"Add auth to a Next.js app with Postgres and Vercel\" --stack Next.js,Postgres,Vercel",
+    "registryrouter:validate": "node packages/registryrouter-mcp/bin/validate-catalog.js"
   }
 }
