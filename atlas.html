@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Registry Atlas — Brainn.dev</title>
-  <meta name="description" content="A cleaner entry point to the Brainn.dev full-stack registry atlas for RegistryRouter MCP and AI coding agents." />
+  <meta name="description" content="A structured source map for RegistryRouter MCP and AI coding agents." />
   <link rel="canonical" href="https://brainn.dev/atlas.html" />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -25,20 +25,20 @@
   <main class="site-shell">
     <section class="page-title">
       <span class="eyebrow">Registry Atlas</span>
-      <h1>A source map for AI coding agents.</h1>
-      <p>The atlas is the knowledge foundation behind RegistryRouter MCP. It helps agents identify the right registry, package index, documentation source, marketplace, catalog, or approval path before implementation begins.</p>
+      <h1>A structured source map for AI coding agents.</h1>
+      <p>The atlas organizes the registries, package indexes, documentation sources, marketplaces, catalogs, and review checks that agents need before they make implementation decisions.</p>
       <div class="actions">
         <a class="button primary" href="full_stack_registry_llm_reference.html">Open full reference</a>
-        <a class="button" href="mcp.html">Use through MCP</a>
+        <a class="button" href="mcp.html">View MCP interface</a>
       </div>
     </section>
 
     <section class="section">
       <div class="section-head">
         <div>
-          <span class="chip info">Why it exists</span>
-          <h2>Agents need source judgment before code judgment.</h2>
-          <p>The full reference is intentionally broad. This page is the cleaner product-facing entry point: what the atlas is, how agents should use it, and where the system goes next.</p>
+          <span class="chip info">Purpose</span>
+          <h2>Better source selection for better agent output.</h2>
+          <p>RegistryRouter uses the atlas to help agents distinguish official implementation sources from discovery material, examples, marketplaces, community lists, and policy-controlled systems.</p>
         </div>
       </div>
       <div class="grid-3">
@@ -55,7 +55,7 @@
         <article class="card">
           <span class="num">03</span>
           <h3>Expose risk</h3>
-          <p>Return maintenance, license, pricing, secrets, data access, compatibility, and approval checks before the agent changes the codebase.</p>
+          <p>Surface maintenance, license, pricing, secrets, data access, compatibility, and approval checks before the agent changes the codebase.</p>
         </article>
       </div>
     </section>
@@ -64,8 +64,8 @@
       <div class="section-head">
         <div>
           <span class="chip purple">Coverage</span>
-          <h2>Registry layers covered by the reference.</h2>
-          <p>The current atlas is a curated static map. The next step is to convert these entries into versioned JSON for the MCP server and future API.</p>
+          <h2>Full-stack registry coverage.</h2>
+          <p>The reference spans the systems agents commonly touch when building modern software.</p>
         </div>
       </div>
       <div class="matrix">
@@ -81,7 +81,7 @@
     <section class="section">
       <div class="grid-2">
         <article class="terminal">
-          <div class="terminal-bar"><span>atlas → RegistryRouter data</span><span class="dot-row"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+          <div class="terminal-bar"><span>structured source record</span><span class="dot-row"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
           <div class="terminal-body"><pre>{
   "registry": "shadcn/ui",
   "layer": "ui_frontend",
@@ -97,12 +97,12 @@
 }</pre></div>
         </article>
         <article class="card">
-          <span class="chip warn">Next data step</span>
-          <h3 style="margin-top:12px">Convert the atlas into JSON.</h3>
-          <p>The original HTML remains the human-readable reference. The MCP package should consume a normalized catalog with stable IDs, layers, authority levels, cost models, risk checks, tags, and review dates.</p>
+          <span class="chip warn">Reference format</span>
+          <h3 style="margin-top:12px">Human-readable now. Structured for agents next.</h3>
+          <p>The long-form atlas is available as a browsable reference. RegistryRouter is designed to expose the same source intelligence through agent-readable records, policy checks, and preflight reports.</p>
           <div class="actions compact-actions">
-            <a class="button" href="full_stack_registry_llm_reference.html">View original atlas</a>
-            <a class="button" href="examples.html">See preflight examples</a>
+            <a class="button" href="full_stack_registry_llm_reference.html">View full reference</a>
+            <a class="button" href="examples.html">See examples</a>
           </div>
         </article>
       </div>
@@ -111,11 +111,11 @@
     <section class="section">
       <div class="callout">
         <div class="callout-icon">→</div>
-        <div><strong>Product rule:</strong> the atlas is not the product by itself. RegistryRouter turns it into an agent-callable routing layer that produces source recommendations, policy checks, and preflight reports.</div>
+        <div><strong>Use the atlas as a source map:</strong> the goal is not to browse every registry manually, but to give agents a better way to select trusted sources before implementation.</div>
       </div>
     </section>
   </main>
 
-  <footer class="footer"><div class="site-shell">The full atlas remains available as a long-form reference while the MCP catalog becomes structured data.</div></footer>
+  <footer class="footer"><div class="site-shell">The full atlas remains available as a long-form reference while RegistryRouter exposes the same logic through agent-facing interfaces.</div></footer>
 </body>
 </html>
