@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RegistryRouter MCP Setup — Brainn.dev</title>
+  <meta name="description" content="Install and configure RegistryRouter MCP for AI coding agents." />
+  <link rel="canonical" href="https://brainn.dev/mcp.html" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-inner">
+      <a class="brand" href="index.html"><span class="brand-mark">B</span><span>brainn.dev</span></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="full_stack_registry_llm_reference.html">Atlas</a>
+        <a class="active" href="mcp.html">MCP</a>
+        <a href="examples.html">Examples</a>
+        <a href="README_DEPLOY.md">Deploy</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="site-shell">
+    <section class="page-title">
+      <span class="eyebrow">MCP setup</span>
+      <h1>Install RegistryRouter before your agent codes.</h1>
+      <p>These docs are the first public implementation target. The package name is reserved as the intended official route; until the package is published, this page acts as the install contract and user-facing setup spec.</p>
+    </section>
+
+    <section class="section">
+      <div class="grid-2">
+        <article class="terminal">
+          <div class="terminal-bar"><span>mcp client config</span><span class="dot-row"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+          <div class="terminal-body"><pre>{
+  "mcpServers": {
+    "registryrouter": {
+      "command": "npx",
+      "args": ["@brainn/registryrouter-mcp"],
+      "env": {
+        "REGISTRYROUTER_POLICY": "./registryrouter.policy.json"
+      }
+    }
+  }
+}</pre></div>
+        </article>
+        <article class="card">
+          <span class="chip warn">Status</span>
+          <h3 style="margin-top:12px">MVP implementation path</h3>
+          <p>The first release should be local-first and deterministic. It should load the atlas catalog, expose MCP tools, read an optional policy file, and return Markdown/JSON preflight reports without requiring a hosted API.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <span class="chip info">Tools</span>
+          <h2>Initial MCP surface</h2>
+          <p>Keep the first server narrow. The product wins by making agents pause and choose better sources before implementation.</p>
+        </div>
+      </div>
+      <div class="matrix">
+        <div class="matrix-row matrix-head"><div>Tool</div><div>Purpose</div><div>Returns</div><div>Approval behavior</div></div>
+        <div class="matrix-row"><div><strong>classify_task</strong></div><div>Classify the software layer.</div><div>Layer, confidence, required checks.</div><div>No approval yet.</div></div>
+        <div class="matrix-row"><div><strong>resolve_registry</strong></div><div>Choose authoritative sources.</div><div>Primary sources, fallbacks, agent instruction.</div><div>Flags possible gates.</div></div>
+        <div class="matrix-row"><div><strong>compare_sources</strong></div><div>Compare libraries, vendors, APIs, registries.</div><div>Fit, risks, cost model, what to verify.</div><div>Required for high-risk layers.</div></div>
+        <div class="matrix-row"><div><strong>check_policy</strong></div><div>Apply local/team policy.</div><div>Allowed, blocked, requires approval.</div><div>Explicit gate.</div></div>
+        <div class="matrix-row"><div><strong>generate_preflight_report</strong></div><div>Generate human-readable report.</div><div>Markdown and JSON.</div><div>Shown before coding.</div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <span class="chip">Copyable prompts</span>
+          <h2>Agent instructions</h2>
+        </div>
+      </div>
+      <div class="grid-2">
+        <article class="terminal"><div class="terminal-bar"><span>preflight-before-coding</span></div><div class="terminal-body"><pre>Before writing code, use RegistryRouter to classify the task, identify the authoritative registry/source, check relevant risks, and determine whether human approval is required. Do not invent package names, APIs, pricing, config keys, or capabilities. Return the preflight result before implementation.</pre></div></article>
+        <article class="terminal"><div class="terminal-bar"><span>safe-dependency-install</span></div><div class="terminal-body"><pre>Use RegistryRouter to identify the official package registry and docs for this dependency. Verify package identity, current install command, supported versions, license, maintenance status, security concerns, and rollback path. Then produce an implementation plan with pinned versions where appropriate.</pre></div></article>
+        <article class="terminal"><div class="terminal-bar"><span>ui-source-evaluation</span></div><div class="terminal-body"><pre>Use RegistryRouter to evaluate candidate UI component sources. Prefer source-owned or accessible primitives when the app has an existing design system. Check visual fit, accessibility, dependency footprint, bundle impact, license, and whether the component can be restyled without fighting the product's visual language.</pre></div></article>
+        <article class="terminal"><div class="terminal-bar"><span>mcp-tool-evaluation</span></div><div class="terminal-body"><pre>Use RegistryRouter to evaluate the MCP server or agent tool before connecting it. Check tool identity, source authority, permissions, transport, authentication, data access, logging behavior, prompt-injection risk, installation method, and human approval requirements.</pre></div></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="callout"><div class="callout-icon">!</div><div><strong>Trust rule:</strong> RegistryRouter should not install packages, execute arbitrary code, connect to sensitive systems by default, or claim live verification unless a live check actually occurred.</div></div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="site-shell">RegistryRouter MCP is the source-routing layer for AI coding agents.</div></footer>
+</body>
+</html>

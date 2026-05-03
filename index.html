@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brainn.dev — RegistryRouter MCP</title>
+  <meta name="description" content="Registry intelligence for AI coding agents. RegistryRouter MCP tells agents where to look, what to trust, what to avoid, and what needs human approval before implementation begins." />
+  <link rel="canonical" href="https://brainn.dev/" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-inner">
+      <a class="brand" href="index.html" aria-label="Brainn.dev home"><span class="brand-mark">B</span><span>brainn.dev</span></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a class="active" href="index.html">Home</a>
+        <a href="full_stack_registry_llm_reference.html">Atlas</a>
+        <a href="mcp.html">MCP</a>
+        <a href="examples.html">Examples</a>
+        <a href="README_DEPLOY.md">Deploy</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="site-shell">
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">Registry intelligence for AI coding agents</span>
+          <h1>Before your agent writes code, tell it where to look.</h1>
+          <p class="lede">RegistryRouter MCP classifies software tasks, routes agents to authoritative registries and docs, checks policy and risk, and returns a preflight report before implementation begins.</p>
+          <div class="actions">
+            <a class="button primary" href="mcp.html">Install RegistryRouter MCP</a>
+            <a class="button" href="full_stack_registry_llm_reference.html">Explore the Atlas</a>
+          </div>
+        </div>
+        <aside class="terminal" aria-label="RegistryRouter preflight example">
+          <div class="terminal-bar"><span>registryrouter.preflight</span><span class="dot-row"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+          <div class="terminal-body"><pre>Task: Add auth to a Next.js + Postgres app
+Layer: auth_identity
+Primary sources:
+  - Auth.js official docs
+  - Next.js auth examples
+Alternatives:
+  - Clerk
+  - Supabase Auth
+Required checks:
+  - session model
+  - OAuth scopes
+  - secret handling
+  - pricing and data residency
+Human approval: required if external SaaS is selected</pre></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <span class="chip info">The wedge</span>
+          <h2>Source routing, not code generation.</h2>
+          <p>Most coding agents fail before they write code: they choose stale docs, invent packages, trust the wrong examples, or connect tools with too much access. RegistryRouter sits one step earlier.</p>
+        </div>
+      </div>
+      <div class="grid-3">
+        <article class="card"><span class="num">01</span><h3>Classify the task</h3><p>Identify whether the work touches UI, packages, containers, infra, APIs, auth, AI tools, security, data, or internal policy.</p></article>
+        <article class="card"><span class="num">02</span><h3>Resolve the source</h3><p>Prefer official registries, docs, package indexes, cloud marketplaces, or internal catalogs over random examples and stale blog posts.</p></article>
+        <article class="card"><span class="num">03</span><h3>Return preflight</h3><p>Give the agent risks, approval gates, alternatives, and implementation instructions before it starts changing the codebase.</p></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <span class="chip">How it works</span>
+          <h2>A deterministic preflight layer for agentic development.</h2>
+          <p>The MVP starts static and local: a curated registry atlas, a transparent decision engine, an MCP server, and markdown/json outputs agents can use immediately.</p>
+        </div>
+      </div>
+      <div class="matrix">
+        <div class="matrix-row matrix-head"><div>Step</div><div>Tool</div><div>Output</div><div>Human gate</div></div>
+        <div class="matrix-row"><div><strong>1. Classify</strong></div><div><code>classify_task</code></div><div>Primary layer, secondary layers, confidence, required checks.</div><div>None yet.</div></div>
+        <div class="matrix-row"><div><strong>2. Resolve</strong></div><div><code>resolve_registry</code></div><div>Authoritative sources, fallbacks, source notes, constraints.</div><div>Maybe.</div></div>
+        <div class="matrix-row"><div><strong>3. Policy</strong></div><div><code>check_policy</code></div><div>Allowed, blocked, or requires approval with reasons.</div><div>Explicit.</div></div>
+        <div class="matrix-row"><div><strong>4. Report</strong></div><div><code>generate_preflight_report</code></div><div>Markdown/JSON report the user can approve before coding.</div><div>Before code.</div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <span class="chip purple">Atlas coverage</span>
+          <h2>Built from the full-stack registry atlas.</h2>
+          <p>The current atlas covers UI registries, package indexes, artifact stores, container registries, infrastructure catalogs, CI/CD marketplaces, API directories, model hubs, security databases, MCP registries, and internal service catalogs.</p>
+        </div>
+        <a class="button" href="full_stack_registry_llm_reference.html">Open Atlas</a>
+      </div>
+      <div class="grid-3">
+        <article class="card"><h3>Free and open</h3><p>Official package registries, open-source component systems, public specs, and community registries with license and maintenance checks.</p></article>
+        <article class="card"><h3>Freemium and paid</h3><p>SaaS, cloud, API, marketplace, and vendor sources with pricing, procurement, data access, and approval warnings.</p></article>
+        <article class="card"><h3>Internal and private</h3><p>Policy packs, approved vendors, private registries, service catalogs, and organization-specific source routing.</p></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="callout">
+        <div class="callout-icon">↳</div>
+        <div><strong>Public MVP goal:</strong> make Brainn.dev useful even before the hosted API exists. The site should explain the product, host the atlas, give copyable MCP setup instructions, and show examples that developers can test with their own agents.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="site-shell">Brainn.dev builds registry intelligence and preflight systems for AI-assisted software development.</div>
+  </footer>
+</body>
+</html>

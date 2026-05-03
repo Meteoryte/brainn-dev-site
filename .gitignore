@@ -1,0 +1,18 @@
+# Rename this file to .gitignore locally.
+
+# Local/generated noise
+.DS_Store
+Thumbs.db
+node_modules/
+dist/
+.cache/
+
+# Old scope docs and local drafts
+*.docx
+_ignored/
+ignored/
+
+# Secrets
+.env
+.env.*
+!.env.example

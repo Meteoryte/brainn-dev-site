@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Full-Stack Registry Atlas for LLMs</title>
+  <meta name="description" content="A structured guide to software registries, marketplaces, package indexes, integration catalogs, model hubs, and service catalogs for LLM-assisted full-stack development." />
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #111831;
+      --panel-2: #16203f;
+      --text: #eef3ff;
+      --muted: #aab6d3;
+      --faint: #7e8bab;
+      --line: rgba(255,255,255,.12);
+      --accent: #8bd3ff;
+      --accent-2: #b7f7d2;
+      --warn: #ffd166;
+      --danger: #ff8fa3;
+      --purple: #cdb4ff;
+      --shadow: 0 20px 60px rgba(0,0,0,.32);
+      --radius: 20px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(139, 211, 255, .14), transparent 34rem),
+        radial-gradient(circle at 80% 8%, rgba(205, 180, 255, .13), transparent 30rem),
+        linear-gradient(180deg, #0b1020 0%, #09101d 100%);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.5;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code, pre { font-family: var(--mono); }
+
+    .page {
+      width: min(1440px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 32px 0 72px;
+    }
+
+    .hero {
+      position: relative;
+      border: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(17, 24, 49, .95), rgba(22, 32, 63, .88));
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+      padding: clamp(28px, 5vw, 64px);
+      overflow: hidden;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -160px;
+      top: -160px;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139, 211, 255, .23), transparent 65%);
+      pointer-events: none;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border: 1px solid rgba(139, 211, 255, .28);
+      border-radius: 999px;
+      color: var(--accent);
+      background: rgba(139, 211, 255, .08);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: .02em;
+    }
+    h1 {
+      margin: 20px 0 16px;
+      font-size: clamp(36px, 6vw, 78px);
+      line-height: .95;
+      letter-spacing: -.055em;
+      max-width: 980px;
+    }
+    .subtitle {
+      max-width: 920px;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 22px);
+      margin: 0;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 32px;
+    }
+    .stat {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      background: rgba(255,255,255,.045);
+    }
+    .stat strong {
+      display: block;
+      font-size: 30px;
+      letter-spacing: -.04em;
+    }
+    .stat span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .notice {
+      margin-top: 18px;
+      border: 1px solid rgba(255, 209, 102, .32);
+      background: rgba(255, 209, 102, .08);
+      color: #ffe7a6;
+      border-radius: 18px;
+      padding: 15px 18px;
+      font-size: 14px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 310px minmax(0, 1fr);
+      gap: 22px;
+      margin-top: 24px;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 16px;
+      height: calc(100vh - 32px);
+      overflow: auto;
+      border: 1px solid var(--line);
+      background: rgba(17, 24, 49, .86);
+      backdrop-filter: blur(16px);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .sidebar h2 {
+      font-size: 14px;
+      margin: 0 0 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+    .nav-list { display: grid; gap: 6px; }
+    .nav-list a {
+      color: var(--muted);
+      font-size: 13px;
+      padding: 9px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+    }
+    .nav-list a:hover {
+      color: var(--text);
+      text-decoration: none;
+      background: rgba(255,255,255,.05);
+      border-color: var(--line);
+    }
+
+    .content { min-width: 0; }
+    .panel {
+      border: 1px solid var(--line);
+      background: rgba(17, 24, 49, .78);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(20px, 3vw, 32px);
+      margin-bottom: 22px;
+    }
+    h2.section-title {
+      margin: 0 0 10px;
+      font-size: clamp(24px, 3.5vw, 38px);
+      line-height: 1;
+      letter-spacing: -.04em;
+    }
+    .section-lede {
+      margin: 0 0 22px;
+      color: var(--muted);
+      max-width: 980px;
+    }
+    h3 {
+      margin: 0 0 12px;
+      font-size: 20px;
+      letter-spacing: -.02em;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) 190px 190px 190px;
+      gap: 12px;
+      margin: 18px 0 0;
+    }
+    input, select, button {
+      width: 100%;
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: rgba(255,255,255,.06);
+      border-radius: 14px;
+      padding: 12px 14px;
+      font: inherit;
+      outline: none;
+    }
+    input::placeholder { color: var(--faint); }
+    button {
+      cursor: pointer;
+      font-weight: 800;
+      background: linear-gradient(135deg, rgba(139,211,255,.24), rgba(183,247,210,.16));
+    }
+    button:hover { border-color: rgba(139,211,255,.45); }
+
+    .legend {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 12px;
+      background: rgba(255,255,255,.045);
+      white-space: nowrap;
+    }
+    .pill.free { color: var(--accent-2); border-color: rgba(183,247,210,.28); background: rgba(183,247,210,.08); }
+    .pill.freemium { color: var(--accent); border-color: rgba(139,211,255,.28); background: rgba(139,211,255,.08); }
+    .pill.paid { color: var(--warn); border-color: rgba(255,209,102,.30); background: rgba(255,209,102,.08); }
+    .pill.mixed { color: var(--purple); border-color: rgba(205,180,255,.30); background: rgba(205,180,255,.08); }
+    .pill.risk { color: var(--danger); border-color: rgba(255,143,163,.30); background: rgba(255,143,163,.08); }
+
+    .protocol-grid, .prompt-grid, .criteria-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .mini-card {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.045);
+      border-radius: 18px;
+      padding: 18px;
+    }
+    .mini-card p, .mini-card li { color: var(--muted); }
+    .mini-card ul { margin: 8px 0 0; padding-left: 20px; }
+    .mini-card .num {
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      display: inline-grid;
+      place-items: center;
+      font-weight: 900;
+      background: rgba(139,211,255,.14);
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin: 0;
+      color: #eaf2ff;
+      background: rgba(0,0,0,.24);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      font-size: 13px;
+    }
+
+    .category {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      overflow: hidden;
+      margin: 16px 0;
+      background: rgba(255,255,255,.035);
+    }
+    .category-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 14px;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
+      border-bottom: 1px solid var(--line);
+    }
+    .category-title {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: -.03em;
+    }
+    .category-purpose {
+      margin: 6px 0 0;
+      color: var(--muted);
+    }
+    .category-meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      align-content: start;
+    }
+    .registry-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      padding: 16px;
+    }
+    .registry-card {
+      border: 1px solid var(--line);
+      background: rgba(11, 16, 32, .64);
+      border-radius: 18px;
+      padding: 15px;
+      min-height: 230px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .registry-card h4 {
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: -.02em;
+    }
+    .registry-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .registry-card .meta-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .registry-card .spacer { flex: 1; }
+    .registry-card a {
+      display: inline-flex;
+      width: fit-content;
+      margin-top: 4px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .tiny {
+      font-size: 11px;
+      padding: 4px 7px;
+    }
+    .llm-note {
+      padding: 0 16px 18px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .llm-note strong { color: var(--text); }
+
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      font-size: 14px;
+    }
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: rgba(255,255,255,.06); color: var(--text); }
+    td { color: var(--muted); }
+    tr:last-child td { border-bottom: 0; }
+
+    .footer {
+      color: var(--faint);
+      text-align: center;
+      padding: 34px 12px 0;
+      font-size: 13px;
+    }
+
+    @media (max-width: 1180px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { position: relative; top: 0; height: auto; }
+      .registry-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .controls { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 720px) {
+      .hero-grid, .protocol-grid, .prompt-grid, .criteria-grid, .registry-grid, .controls { grid-template-columns: 1fr; }
+      .category-header { grid-template-columns: 1fr; }
+      .category-meta { justify-content: flex-start; }
+      .page { width: min(100vw - 20px, 1440px); padding-top: 10px; }
+    }
+
+    @media print {
+      body { background: white; color: #111; }
+      .hero, .panel, .sidebar, .category, .registry-card, .mini-card, pre { box-shadow: none; background: white; color: #111; }
+      .layout { display: block; }
+      .sidebar, .controls, .footer { display: none; }
+      a { color: #0645ad; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero" id="top">
+      <span class="eyebrow">Registry atlas for full-stack coding agents</span>
+      <h1>How LLMs should discover, evaluate, and use registries across the full stack</h1>
+      <p class="subtitle">A practical map of package registries, UI registries, cloud marketplaces, integration catalogs, model hubs, security databases, templates, plugins, service catalogs, and agent tool registries. Built for human developers and LLM agents that need to choose the right source before writing code.</p>
+      <div class="hero-grid">
+        <div class="stat"><strong>50</strong><span>full-stack registry categories</span></div>
+        <div class="stat"><strong>250</strong><span>recommended registries and marketplaces</span></div>
+        <div class="stat"><strong>5</strong><span>recommended picks per category</span></div>
+        <div class="stat"><strong>LLM</strong><span>lookup, verification, and usage protocol</span></div>
+      </div>
+      <div class="notice"><strong>Pricing note:</strong> “Free,” “freemium,” “paid,” and “mixed marketplace” labels are practical starting points, not legal or pricing advice. LLMs and developers should always verify current pricing, license, terms, region availability, and security posture before implementation.</div>
+    </section>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <h2>Navigation</h2>
+        <nav class="nav-list">
+          <a href="#llm-protocol">LLM lookup protocol</a>
+          <a href="#cost-models">Free vs paid rules</a>
+          <a href="#selection-criteria">Selection criteria</a>
+          <a href="#prompt-templates">Prompt templates</a>
+          <a href="#registry-atlas">Registry atlas</a>
+          <a href="#maintenance">Maintenance checklist</a>
+          <a href="#machine-summary">Machine-readable summary</a>
+        </nav>
+        <h2 style="margin-top:22px">Category index</h2>
+        <nav class="nav-list" id="categoryNav"></nav>
+      </aside>
+
+      <div class="content">
+        <section class="panel" id="llm-protocol">
+          <h2 class="section-title">LLM lookup protocol</h2>
+          <p class="section-lede">Before an LLM writes code, installs dependencies, creates infrastructure, or recommends a vendor, it should decide which registry layer is authoritative for the job.</p>
+          <div class="protocol-grid">
+            <div class="mini-card"><span class="num">1</span><h3>Classify the task layer</h3><p>Identify whether the request is about UI, package dependencies, containers, infrastructure, CI/CD, APIs, data, observability, AI, security, mobile, docs, or internal service discovery.</p></div>
+            <div class="mini-card"><span class="num">2</span><h3>Prefer the official registry</h3><p>Use the canonical package index, marketplace, documentation site, or registry API first. Community lists are useful for discovery, but official sources should drive installation and configuration.</p></div>
+            <div class="mini-card"><span class="num">3</span><h3>Verify recency and compatibility</h3><p>Check last updated date, supported framework versions, runtime compatibility, license, install method, active maintenance, security status, and whether the registry has breaking changes.</p></div>
+            <div class="mini-card"><span class="num">4</span><h3>Separate discovery from execution</h3><p>Discovery finds candidates. Execution uses locked versions, official install commands, reviewed configuration, environment variables, least-privilege secrets, and explicit rollback plans.</p></div>
+            <div class="mini-card"><span class="num">5</span><h3>Check cost and governance</h3><p>Classify the registry as free/open, freemium, paid, mixed marketplace, or internal. For paid/cloud registries, verify billing, data residency, compliance, seat limits, and procurement constraints.</p></div>
+            <div class="mini-card"><span class="num">6</span><h3>Return actionable output</h3><p>Give the user the registry choice, why it was chosen, alternatives, install/config steps, risks, and what needs human approval. Avoid inventing package names, API fields, or pricing.</p></div>
+          </div>
+        </section>
+
+        <section class="panel" id="cost-models">
+          <h2 class="section-title">Free vs paid classification</h2>
+          <p class="section-lede">Use these labels to reason about cost, licensing, and governance. A single registry can contain both free and paid items, so the label describes the registry’s usual operating model.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Label</th><th>Meaning</th><th>LLM behavior</th><th>Examples</th></tr></thead>
+              <tbody>
+                <tr><td><span class="pill free">Free / open</span></td><td>Free to browse and commonly open-source to use.</td><td>Still verify license, maintenance, transitive dependencies, and security.</td><td>shadcn/ui, Radix UI, npm open-source packages, Terraform Registry modules, PGXN.</td></tr>
+                <tr><td><span class="pill freemium">Freemium</span></td><td>Free tier or open-source core plus paid features, hosting, support, or pro assets.</td><td>Identify which exact feature is free versus paid before recommending implementation.</td><td>MUI, Magic UI, Aceternity UI, Postman, Sentry, Supabase, Clerk.</td></tr>
+                <tr><td><span class="pill paid">Paid / commercial</span></td><td>Primarily paid SaaS, enterprise product, cloud service, or procurement channel.</td><td>Require pricing/terms verification and human approval before adoption.</td><td>Datadog, LaunchDarkly, Workato, Cortex, OpsLevel, many cloud marketplace products.</td></tr>
+                <tr><td><span class="pill mixed">Mixed marketplace</span></td><td>Contains a blend of free, paid, vendor, partner, open-source, and commercial listings.</td><td>Evaluate the individual listing, not just the marketplace brand.</td><td>AWS Marketplace, Shopify App Store, Stripe App Marketplace, Chrome Web Store, Unity Asset Store.</td></tr>
+                <tr><td><span class="pill risk">Deprecated / caution</span></td><td>Registry is shut down, stale, risky, or not an installation source.</td><td>Use only for historical context unless verified safe. Prefer active alternatives.</td><td>Trunk Postgres registry after shutdown, unmaintained GitHub lists, abandoned packages.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel" id="selection-criteria">
+          <h2 class="section-title">Selection criteria for LLMs</h2>
+          <p class="section-lede">When multiple registries solve the same problem, rank them using these criteria before recommending one.</p>
+          <div class="criteria-grid">
+            <div class="mini-card"><h3>Authority</h3><ul><li>Official package index or vendor marketplace?</li><li>Maintained by framework authors?</li><li>Documented installation path?</li></ul></div>
+            <div class="mini-card"><h3>Compatibility</h3><ul><li>Framework/runtime/version support?</li><li>Cloud provider or deployment target?</li><li>Language, package manager, and OS support?</li></ul></div>
+            <div class="mini-card"><h3>Security</h3><ul><li>Known advisories?</li><li>Signed releases, provenance, or SBOM?</li><li>Least-privilege secrets and scopes?</li></ul></div>
+            <div class="mini-card"><h3>Cost</h3><ul><li>Free, freemium, paid, or mixed?</li><li>Usage-based costs?</li><li>Seat, environment, and enterprise limits?</li></ul></div>
+            <div class="mini-card"><h3>Maintenance</h3><ul><li>Recent updates?</li><li>Issue/PR activity?</li><li>Migration path and changelog quality?</li></ul></div>
+            <div class="mini-card"><h3>Ownership</h3><ul><li>Who owns the service internally?</li><li>Who rotates keys and upgrades versions?</li><li>How is rollback handled?</li></ul></div>
+          </div>
+        </section>
+
+        <section class="panel" id="prompt-templates">
+          <h2 class="section-title">Copyable prompt templates for coding agents</h2>
+          <p class="section-lede">Use these to make an LLM behave like a careful registry-aware engineering assistant.</p>
+          <div class="prompt-grid">
+            <pre>Task: Choose the best registry source before coding.
+
+Classify this request into a full-stack layer. Search the official registry or marketplace first. Compare at least 3 candidates by authority, license, cost model, maintenance, compatibility, security, and install complexity. Then recommend one primary choice and one fallback. Do not invent package names, pricing, or config fields.</pre>
+            <pre>Task: Install or use a registry item safely.
+
+Before giving code, verify the current install command, supported versions, license, and security advisories. Use pinned versions where appropriate. Explain required environment variables, secrets, scopes, deployment target, and rollback strategy. Separate free-tier assumptions from paid features.</pre>
+            <pre>Task: Evaluate a UI registry component.
+
+Check whether the component is copied into source or installed as a dependency. Verify accessibility, Tailwind/framework compatibility, animation dependencies, license, bundle impact, and whether it matches the existing design system. Prefer components that are owned and editable by the app team.</pre>
+            <pre>Task: Evaluate an AI/MCP/tool registry item.
+
+Verify server/tool identity, capabilities, transport, authentication, scopes, data access, prompt-injection risk, logging behavior, and deployment model. Prefer official MCP Registry or trusted vendor sources. Never connect tools to sensitive data without explicit approval.</pre>
+          </div>
+        </section>
+
+        <section class="panel" id="registry-atlas">
+          <h2 class="section-title">Registry atlas</h2>
+          <p class="section-lede">Filter by cost model, layer, or keyword. Each category includes five strong registries plus an LLM usage note.</p>
+          <div class="controls">
+            <input id="searchInput" type="search" placeholder="Search registry, category, use case, cost, or note…" />
+            <select id="costFilter"><option value="all">All cost models</option><option value="free">Free / open</option><option value="freemium">Freemium</option><option value="paid">Paid / commercial</option><option value="mixed">Mixed marketplace</option><option value="risk">Deprecated / caution</option></select>
+            <select id="layerFilter"><option value="all">All layers</option></select>
+            <button id="resetBtn" type="button">Reset filters</button>
+          </div>
+          <div class="legend">
+            <span class="pill free">Free / open</span><span class="pill freemium">Freemium</span><span class="pill paid">Paid / commercial</span><span class="pill mixed">Mixed marketplace</span><span class="pill risk">Deprecated / caution</span>
+          </div>
+          <div id="atlas"></div>
+        </section>
+
+        <section class="panel" id="maintenance">
+          <h2 class="section-title">Maintenance checklist</h2>
+          <p class="section-lede">A registry-aware LLM should not stop at install commands. It should help keep the stack healthy over time.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Check</th><th>Cadence</th><th>Why it matters</th></tr></thead>
+              <tbody>
+                <tr><td>Verify links and registry availability</td><td>Monthly or before major work</td><td>Registries move, deprecate products, or shut down.</td></tr>
+                <tr><td>Audit licenses and commercial terms</td><td>Before adoption and quarterly</td><td>Open-source and marketplace terms can affect redistribution, enterprise use, and compliance.</td></tr>
+                <tr><td>Check advisories and supply-chain risk</td><td>Every CI run or at least weekly</td><td>Package compromise, malicious updates, and vulnerable dependencies are common full-stack risks.</td></tr>
+                <tr><td>Pin versions and document upgrade paths</td><td>At implementation</td><td>Prevents non-reproducible builds and surprise breaking changes.</td></tr>
+                <tr><td>Review data access and secrets</td><td>Before deploying integrations</td><td>API, MCP, analytics, auth, and observability tools often access sensitive data.</td></tr>
+                <tr><td>Record internal owner</td><td>At adoption</td><td>Every registry item should have a person/team responsible for upgrades, billing, keys, and incidents.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel" id="machine-summary">
+          <h2 class="section-title">Machine-readable guidance</h2>
+          <p class="section-lede">Compact rules an LLM can internalize when using this page as context.</p>
+          <pre>{
+  "core_rule": "Choose the authoritative registry for the full-stack layer before writing code.",
+  "cost_rule": "Treat free/freemium/paid/mixed labels as provisional; verify current pricing, license, and terms before implementation.",
+  "security_rule": "Check maintenance, advisories, provenance, secrets, scopes, and data access before installation or integration.",
+  "implementation_rule": "Use official docs and current install commands; do not invent package names, config keys, pricing, or APIs.",
+  "output_rule": "Return recommended registry, alternatives, cost model, install/use steps, risks, and required human approvals."
+}</pre>
+        </section>
+      </div>
+    </div>
+
+    <footer class="footer">Built as a living atlas. Review registry links, licenses, pricing, and compatibility before production use.</footer>
+  </main>
+
+  <script>
+    const categories = [
+      {
+        id: "shadcn-style-ui-registries",
+        title: "1. shadcn-style copy/paste UI code registries",
+        layer: "UI / frontend",
+        purpose: "Use when the team wants to own the source code for components rather than depend on a black-box package.",
+        llm: "Check whether the registry item is copied into the repo, what files it creates, and which dependencies it adds. Verify accessibility and Tailwind/framework assumptions.",
+        items: [
+          {name:"shadcn/ui", url:"https://ui.shadcn.com", cost:"free", best:"Baseline source-owned UI registry and CLI.", use:"Install components into app source; ideal for design-system foundations."},
+          {name:"Origin UI", url:"https://github.com/origin-space/originui", cost:"free", best:"Large set of practical app UI components.", use:"Use for dashboards, forms, navigation, and SaaS application pieces."},
+          {name:"Magic UI", url:"https://magicui.design", cost:"freemium", best:"Animated marketing and SaaS sections.", use:"Use for polished landing pages, hero sections, and motion-heavy blocks."},
+          {name:"Aceternity UI", url:"https://ui.aceternity.com", cost:"freemium", best:"Premium-feeling animated components.", use:"Use for visual polish, backgrounds, cards, and motion interactions."},
+          {name:"Intent UI", url:"https://intentui.com", cost:"free", best:"Accessible React Aria-style components.", use:"Use when accessibility and ownership are more important than flashy visuals."}
+        ]
+      },
+      {
+        id: "full-ui-component-libraries",
+        title: "2. Full UI component libraries",
+        layer: "UI / frontend",
+        purpose: "Use when a maintained package-based component system is preferable to copied component source.",
+        llm: "Check theme system, accessibility guarantees, package size, framework support, SSR support, and whether paid/pro components are required.",
+        items: [
+          {name:"MUI", url:"https://mui.com", cost:"freemium", best:"Enterprise React component suite.", use:"Use for admin tools, data grids, enterprise dashboards, and mature design systems."},
+          {name:"Radix UI", url:"https://www.radix-ui.com", cost:"free", best:"Accessible low-level primitives.", use:"Use to build custom design systems without reinventing ARIA behavior."},
+          {name:"React Aria Components", url:"https://react-spectrum.adobe.com/react-aria", cost:"free", best:"Accessibility-first component foundation.", use:"Use for complex, internationalized, accessible interactions."},
+          {name:"Mantine", url:"https://mantine.dev", cost:"free", best:"Batteries-included React app kit.", use:"Use when you want hooks, forms, charts, notifications, and UI together."},
+          {name:"Chakra UI", url:"https://chakra-ui.com", cost:"free", best:"Ergonomic accessible component library.", use:"Use for fast React app UI with a strong theme API."}
+        ]
+      },
+      {
+        id: "icon-and-design-assets",
+        title: "3. Icon and design asset registries",
+        layer: "Design / assets",
+        purpose: "Use for icons, logos, SVG primitives, and visual assets that should be consistent across the app.",
+        llm: "Check license, attribution requirements, SVG import method, tree-shaking, and whether the project already uses a standard icon set.",
+        items: [
+          {name:"Iconify", url:"https://iconify.design", cost:"free", best:"Aggregated icon registry.", use:"Use to search across many icon sets from one API/tooling layer."},
+          {name:"Lucide", url:"https://lucide.dev", cost:"free", best:"Clean app icon set.", use:"Use for modern SaaS dashboards and consistent interface icons."},
+          {name:"Heroicons", url:"https://heroicons.com", cost:"free", best:"Tailwind-native icon set.", use:"Use for Tailwind projects and simple product UIs."},
+          {name:"React Icons", url:"https://react-icons.github.io/react-icons", cost:"free", best:"React wrapper over many icon packs.", use:"Use when the app needs icons from multiple popular libraries."},
+          {name:"Font Awesome", url:"https://fontawesome.com", cost:"freemium", best:"Broad general icon toolkit.", use:"Use where brand breadth or legacy coverage matters."}
+        ]
+      },
+      {
+        id: "starter-template-registries",
+        title: "4. Starter template and app scaffold registries",
+        layer: "Templates / scaffolding",
+        purpose: "Use to start from working apps, deployment examples, and opinionated golden paths.",
+        llm: "Check whether the template is current, deployable, secure, and compatible with the user’s target framework, database, auth, and hosting provider.",
+        items: [
+          {name:"Vercel Templates", url:"https://vercel.com/templates", cost:"mixed", best:"Next.js, AI, SaaS, commerce, and frontend templates.", use:"Use for deployable Next.js and serverless starter apps."},
+          {name:"Railway Templates", url:"https://railway.com/templates", cost:"mixed", best:"Full-stack deployable service templates.", use:"Use for quick app, database, worker, and service deployment."},
+          {name:"Netlify Templates", url:"https://www.netlify.com/templates", cost:"mixed", best:"Jamstack and static/frontend templates.", use:"Use for marketing, docs, and frontend-heavy projects."},
+          {name:"CodeSandbox Templates", url:"https://codesandbox.io/templates", cost:"freemium", best:"Browser-based prototyping.", use:"Use for interactive demos and quick reproduction environments."},
+          {name:"StackBlitz Starters", url:"https://stackblitz.com", cost:"freemium", best:"WebContainer-based frontend starts.", use:"Use for fast in-browser app experiments and shareable starts."}
+        ]
+      },
+      {
+        id: "public-language-package-registries",
+        title: "5. Public language package registries",
+        layer: "Packages / dependencies",
+        purpose: "Use to discover and install language-specific dependencies.",
+        llm: "Never invent package names. Verify package identity, official docs, version, license, popularity signals, maintenance, and security advisories.",
+        items: [
+          {name:"npm", url:"https://www.npmjs.com", cost:"free", best:"JavaScript and TypeScript packages.", use:"Use for Node, frontend, React, CLI, and build-tool dependencies."},
+          {name:"PyPI", url:"https://pypi.org", cost:"free", best:"Python packages.", use:"Use for Python apps, data science, backend services, and tooling."},
+          {name:"Maven Central", url:"https://central.sonatype.com", cost:"free", best:"Java and JVM packages.", use:"Use for Java, Kotlin, Scala, Gradle, Maven, and SBT dependencies."},
+          {name:"NuGet", url:"https://www.nuget.org", cost:"free", best:".NET packages.", use:"Use for C#, F#, ASP.NET, MAUI, and .NET tooling."},
+          {name:"crates.io", url:"https://crates.io", cost:"free", best:"Rust crates.", use:"Use for Rust libraries, CLIs, web services, and systems software."}
+        ]
+      },
+      {
+        id: "private-artifact-registries",
+        title: "6. Private/internal artifact registries",
+        layer: "Packages / supply chain",
+        purpose: "Use for private packages, dependency proxying, governance, approvals, SBOMs, and enterprise artifact management.",
+        llm: "Check organization policy before suggesting public installs. Prefer internal mirrors/proxies when available and document provenance requirements.",
+        items: [
+          {name:"JFrog Artifactory", url:"https://jfrog.com/artifactory", cost:"paid", best:"Universal enterprise artifact platform.", use:"Use for multi-language private artifacts, binaries, Docker, and governance."},
+          {name:"Sonatype Nexus Repository", url:"https://www.sonatype.com/products/sonatype-nexus-repository", cost:"freemium", best:"Classic artifact repository manager.", use:"Use for Maven/npm/Docker/private proxying and enterprise repository governance."},
+          {name:"GitHub Packages", url:"https://github.com/features/packages", cost:"freemium", best:"GitHub-native package registry.", use:"Use when source and package access should live with GitHub repos/orgs."},
+          {name:"AWS CodeArtifact", url:"https://aws.amazon.com/codeartifact", cost:"paid", best:"AWS-native package registry.", use:"Use for AWS organizations that need managed private package repositories."},
+          {name:"Cloudsmith", url:"https://cloudsmith.com", cost:"freemium", best:"Cloud-native package registry.", use:"Use for multi-format package distribution with modern access controls."}
+        ]
+      },
+      {
+        id: "container-oci-registries",
+        title: "7. Container and OCI registries",
+        layer: "Containers / deployment",
+        purpose: "Use for Docker images, OCI artifacts, deployment images, and container supply chains.",
+        llm: "Check image origin, tags, digest pinning, base image vulnerabilities, multi-arch support, and private/public visibility.",
+        items: [
+          {name:"Docker Hub", url:"https://hub.docker.com", cost:"freemium", best:"Public default container registry.", use:"Use for common base images and public container discovery."},
+          {name:"GitHub Container Registry", url:"https://ghcr.io", cost:"freemium", best:"GitHub-native OCI registry.", use:"Use for images tied to GitHub repos and actions."},
+          {name:"Amazon ECR", url:"https://aws.amazon.com/ecr", cost:"paid", best:"AWS-native container registry.", use:"Use for ECS, EKS, Lambda container images, and AWS deployments."},
+          {name:"Google Artifact Registry", url:"https://cloud.google.com/artifact-registry", cost:"paid", best:"GCP-native artifact and container registry.", use:"Use for GKE, Cloud Run, and GCP artifact management."},
+          {name:"Azure Container Registry", url:"https://azure.microsoft.com/products/container-registry", cost:"paid", best:"Azure-native container registry.", use:"Use for AKS, App Service, and Azure enterprise workloads."}
+        ]
+      },
+      {
+        id: "infrastructure-kubernetes-platform-registries",
+        title: "8. Infrastructure, Kubernetes, and platform registries",
+        layer: "Infrastructure / platform",
+        purpose: "Use for providers, modules, Helm charts, operators, and automation collections.",
+        llm: "Verify provider versions, module variables, chart values, CRDs, cluster compatibility, security context, and rollback strategy.",
+        items: [
+          {name:"Terraform Registry", url:"https://registry.terraform.io", cost:"free", best:"IaC providers and modules.", use:"Use for Terraform providers, modules, and infrastructure blueprints."},
+          {name:"Pulumi Registry", url:"https://www.pulumi.com/registry", cost:"free", best:"IaC SDK/provider registry.", use:"Use for cloud resources managed in TypeScript, Python, Go, C#, Java, or YAML."},
+          {name:"Artifact Hub", url:"https://artifacthub.io", cost:"free", best:"Cloud-native package discovery.", use:"Use for Helm charts, OLM operators, Falco rules, Tekton tasks, and more."},
+          {name:"OperatorHub", url:"https://operatorhub.io", cost:"free", best:"Kubernetes Operator discovery.", use:"Use for managed Kubernetes workloads installed as operators."},
+          {name:"Ansible Galaxy", url:"https://galaxy.ansible.com", cost:"free", best:"Ansible roles and collections.", use:"Use for configuration management and automation content."}
+        ]
+      },
+      {
+        id: "cicd-automation-registries",
+        title: "9. CI/CD automation registries",
+        layer: "CI/CD",
+        purpose: "Use for reusable pipeline steps, workflows, plugins, and build automation packages.",
+        llm: "Check action/plugin publisher, pin to commit SHA or version, secrets access, permissions, and whether the workflow runs on pull requests from forks.",
+        items: [
+          {name:"GitHub Actions Marketplace", url:"https://github.com/marketplace?type=actions", cost:"mixed", best:"General CI automation registry.", use:"Use for GitHub workflows, release automation, tests, deployment, and scanning."},
+          {name:"GitLab CI/CD Catalog", url:"https://docs.gitlab.com/ci/components/", cost:"freemium", best:"GitLab-native reusable CI components.", use:"Use for composable GitLab pipeline building blocks."},
+          {name:"CircleCI Orbs", url:"https://circleci.com/developer/orbs", cost:"mixed", best:"CircleCI reusable config packages.", use:"Use for reusable jobs, commands, and executors."},
+          {name:"Jenkins Plugin Index", url:"https://plugins.jenkins.io", cost:"free", best:"Jenkins plugin ecosystem.", use:"Use for Jenkins build, auth, SCM, notifications, and deployment plugins."},
+          {name:"Buildkite Plugins", url:"https://buildkite.com/resources/plugins", cost:"mixed", best:"Buildkite plugin directory.", use:"Use for Buildkite pipeline steps and reusable automation."}
+        ]
+      },
+      {
+        id: "api-integration-registries",
+        title: "10. API and integration registries",
+        layer: "APIs / integrations",
+        purpose: "Use to discover public APIs, API collections, OpenAPI specs, and no-code/low-code integrations.",
+        llm: "Prefer official API docs/specs. Verify authentication, rate limits, pricing, schemas, SDK freshness, and data handling before coding.",
+        items: [
+          {name:"Postman API Network", url:"https://www.postman.com/explore", cost:"freemium", best:"API discovery and collections.", use:"Use to explore public APIs, collections, examples, and docs."},
+          {name:"RapidAPI / API Hub", url:"https://rapidapi.com", cost:"mixed", best:"API marketplace.", use:"Use to discover APIs, but verify vendor quality and pricing carefully."},
+          {name:"APIs.guru", url:"https://apis.guru", cost:"free", best:"OpenAPI spec directory.", use:"Use for machine-readable OpenAPI definitions and codegen inputs."},
+          {name:"Zapier App Directory", url:"https://zapier.com/apps", cost:"freemium", best:"No-code integration ecosystem.", use:"Use for SaaS automation discovery and supported app triggers/actions."},
+          {name:"Hasura Connector Hub", url:"https://hasura.io/connectors", cost:"freemium", best:"Data connector registry.", use:"Use for data backends exposed through Hasura-style APIs."}
+        ]
+      },
+      {
+        id: "cms-content-commerce-marketplaces",
+        title: "11. CMS, content, and commerce plugin marketplaces",
+        layer: "CMS / commerce",
+        purpose: "Use when the product includes content management, editorial workflows, ecommerce, or storefront extensions.",
+        llm: "Check platform version support, theme compatibility, data access, payment implications, reviews, and whether plugins are actively maintained.",
+        items: [
+          {name:"WordPress Plugin Directory", url:"https://wordpress.org/plugins", cost:"mixed", best:"Largest CMS plugin ecosystem.", use:"Use for WordPress feat

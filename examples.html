@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RegistryRouter Examples — Brainn.dev</title>
+  <meta name="description" content="Example RegistryRouter preflight reports for AI coding agents." />
+  <link rel="canonical" href="https://brainn.dev/examples.html" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-inner">
+      <a class="brand" href="index.html"><span class="brand-mark">B</span><span>brainn.dev</span></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="full_stack_registry_llm_reference.html">Atlas</a>
+        <a href="mcp.html">MCP</a>
+        <a class="active" href="examples.html">Examples</a>
+        <a href="README_DEPLOY.md">Deploy</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="site-shell">
+    <section class="page-title">
+      <span class="eyebrow">Example workflows</span>
+      <h1>Preflight reports agents can show before coding.</h1>
+      <p>These examples demonstrate the product behavior: classify the task, resolve authoritative sources, disclose risk, and make approval gates explicit.</p>
+    </section>
+
+    <section class="section">
+      <div class="grid-2">
+        <article class="terminal">
+          <div class="terminal-bar"><span>Example A · Add auth</span></div>
+          <div class="terminal-body"><pre># RegistryRouter Preflight Report
+
+Task: Add authentication to a Next.js app with Postgres and Vercel.
+
+Classification:
+- Primary layer: auth_identity
+- Secondary layers: packages_dependencies, deployment_hosting, database
+- Human approval: required if selecting an external SaaS provider
+
+Authoritative sources:
+- Auth.js official docs: implementation authority
+- Next.js official docs: framework integration authority
+- Provider docs: OAuth scope authority
+
+Required checks:
+- Session model
+- OAuth scopes
+- Secrets and environment variables
+- Data retention and region availability
+- Pricing if SaaS provider is selected
+
+Agent instruction:
+Do not implement until the user confirms provider choice and session/storage model.</pre></div>
+        </article>
+
+        <article class="terminal">
+          <div class="terminal-bar"><span>Example B · Pick UI source</span></div>
+          <div class="terminal-body"><pre># RegistryRouter Preflight Report
+
+Task: Add a command palette to a React + Vite + Tailwind app.
+
+Classification:
+- Primary layer: ui_frontend
+- Secondary layers: packages_dependencies, accessibility
+
+Primary sources:
+- shadcn/ui Command: source-owned component starting point
+- Radix UI primitives: accessibility behavior authority
+- React Aria Components: fallback accessibility-first source
+
+Required checks:
+- Keyboard behavior
+- Focus trapping
+- Visual fit with existing design system
+- Bundle impact
+- Dependency footprint
+
+Agent instruction:
+Use registry code for behavior and structure only. Restyle every visible pixel to the host app.</pre></div>
+        </article>
+
+        <article class="terminal">
+          <div class="terminal-bar"><span>Example C · Evaluate MCP server</span></div>
+          <div class="terminal-body"><pre># RegistryRouter Preflight Report
+
+Task: Add an MCP server that lets an agent read GitHub issues and pull requests.
+
+Classification:
+- Primary layer: ai_models_tools
+- Secondary layers: security_compliance, apis_integrations
+- Human approval: required
+
+Authoritative sources:
+- Official MCP Registry or vendor-maintained repository
+- GitHub API docs for scopes and token behavior
+- Organization security policy for private repo access
+
+Required checks:
+- Tool identity and maintainer
+- Read/write permissions
+- Token scopes
+- Private code exposure
+- Logging behavior
+- Prompt-injection risk
+
+Agent instruction:
+Use read-only scopes by default. Do not connect to private repositories without explicit approval.</pre></div>
+        </article>
+
+        <article class="terminal">
+          <div class="terminal-bar"><span>Example D · Add payments</span></div>
+          <div class="terminal-body"><pre># RegistryRouter Preflight Report
+
+Task: Add Stripe subscriptions to a Next.js + Supabase app.
+
+Classification:
+- Primary layer: payments_billing
+- Secondary layers: apis_integrations, auth_identity, database
+- Human approval: required
+
+Authoritative sources:
+- Stripe official docs: implementation authority
+- Stripe API reference: schema authority
+- Stripe sample repos: examples only, not final authority
+
+Required checks:
+- Pricing and fees
+- Webhook security
+- API key handling
+- Customer data storage
+- Tax/subscription rules
+- Refund/cancellation handling
+- Local/test mode setup
+
+Agent instruction:
+Generate an implementation plan first. Do not write payment code until the billing model is approved.</pre></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="callout"><div class="callout-icon">✓</div><div><strong>Evaluation target:</strong> RegistryRouter-assisted responses should improve source authority, risk awareness, approval clarity, and hallucination avoidance compared with normal agent output.</div></div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="site-shell">Use these examples as fixtures for the first MCP eval suite.</div></footer>
+</body>
+</html>
