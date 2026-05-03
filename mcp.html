@@ -16,6 +16,7 @@
         <a href="index.html">Home</a>
         <a href="atlas.html">Atlas</a>
         <a class="active" href="mcp.html">MCP</a>
+        <a href="try.html">Try</a>
         <a href="examples.html">Examples</a>
         <a href="about.html">About</a>
       </nav>
@@ -30,9 +31,57 @@
     </section>
 
     <section class="section">
+      <div class="section-head">
+        <div>
+          <span class="chip">Local scaffold</span>
+          <h2>Run locally from source</h2>
+          <p>RegistryRouter MCP is available as a local development scaffold. Clone the repository to run the CLI and MCP server on your own machine.</p>
+        </div>
+      </div>
       <div class="grid-2">
         <article class="terminal">
-          <div class="terminal-bar"><span>mcp client config</span><span class="dot-row"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+          <div class="terminal-bar"><span>1 — clone and install</span><span class="dot-row"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+          <div class="terminal-body"><pre>git clone https://github.com/Meteoryte/brainn-dev-site.git
+cd brainn-dev-site
+npm install</pre></div>
+        </article>
+        <article class="terminal">
+          <div class="terminal-bar"><span>2 — run the smoke test</span><span class="dot-row"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+          <div class="terminal-body"><pre>npm run registryrouter:smoke</pre></div>
+        </article>
+        <article class="terminal">
+          <div class="terminal-bar"><span>3 — mcp client config (local path)</span><span class="dot-row"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+          <div class="terminal-body"><pre>{
+  "mcpServers": {
+    "registryrouter": {
+      "command": "node",
+      "args": ["/absolute/path/to/brainn-dev-site/packages/registryrouter-mcp/bin/server.js"],
+      "env": {
+        "REGISTRYROUTER_POLICY": "./registryrouter.policy.json"
+      }
+    }
+  }
+}</pre></div>
+        </article>
+        <article class="card">
+          <span class="chip info">Status</span>
+          <h3 style="margin-top:12px">Local scaffold · not yet on npm</h3>
+          <p>The MCP server and CLI run from source. Run <code style="font-size:12px;color:var(--accent)">npm run registryrouter:smoke</code> to verify the local setup before connecting a client. npm publication will follow local testing.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <span class="chip warn">Planned</span>
+          <h2>Future npm install path</h2>
+          <p>Once local testing is complete and the package is published, the MCP server will be installable via npx without cloning the repository.</p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <article class="terminal">
+          <div class="terminal-bar"><span>future: mcp client config (npm)</span><span class="dot-row"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
           <div class="terminal-body"><pre>{
   "mcpServers": {
     "registryrouter": {
@@ -46,9 +95,9 @@
 }</pre></div>
         </article>
         <article class="card">
-          <span class="chip warn">Package status</span>
-          <h3 style="margin-top:12px">Implementation in progress</h3>
-          <p>The MCP package is being prepared. The interface below defines the intended agent contract: classify the work, route to trusted sources, apply policy, and return a reviewable preflight report.</p>
+          <span class="chip warn">Not yet published</span>
+          <h3 style="margin-top:12px">@brainn/registryrouter-mcp</h3>
+          <p>This package is not yet published to npm. Do not use the npx command above until the package is available and verified. Use the local scaffold path until then.</p>
         </article>
       </div>
     </section>
