@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-import { classifyTask, defaultPolicy, generatePreflightReport, loadCatalog, loadPolicy, resolveRegistry, checkPolicy } from "../src/core.js";
+import { classifyTask, generatePreflightReport, loadCatalog, loadPolicy, resolveRegistry, checkPolicy } from "../src/core.js";
 
 const [command, ...rest] = process.argv.slice(2);
-const task = rest.filter((arg) => !arg.startsWith("--") && !arg.includes(",")).join(" ").trim();
 const options = parseOptions(rest);
+const task = options._.join(" ").trim();
 const catalog = loadCatalog();
 const policy = loadPolicy(options.policy ?? process.env.REGISTRYROUTER_POLICY);
 
@@ -33,15 +33,24 @@ try {
 }
 
 function parseOptions(args) {
-  const options = {};
+  const options = { _: [] };
   for (let index = 0; index < args.length; index += 1) {
     const arg = args[index];
-    if (!arg.startsWith("--")) continue;
+    if (!arg.startsWith("--")) {
+      options._.push(arg);
+      continue;
+    }
     const [rawKey, rawValue] = arg.slice(2).split("=");
     const key = rawKey.replaceAll("-", "_");
-    const value = rawValue ?? args[index + 1];
-    options[key] = value === undefined || value.startsWith?.("--") ? true : value;
-    if (rawValue === undefined && value !== true) index += 1;
+    const next = args[index + 1];
+    if (rawValue !== undefined) {
+      options[key] = rawValue;
+    } else if (next && !next.startsWith("--")) {
+      options[key] = next;
+      index += 1;
+    } else {
+      options[key] = true;
+    }
   }
   return options;
 }
@@ -51,7 +60,7 @@ function parseStack(value) {
 }
 
 function parseList(value) {
-  if (!value) return [];
+  if (!value || value === true) return [];
   return String(value).split(",").map((item) => item.trim()).filter(Boolean);
 }
 
