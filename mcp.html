@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>RegistryRouter MCP Setup — Brainn.dev</title>
-  <meta name="description" content="Install and configure RegistryRouter MCP for AI coding agents." />
+  <title>RegistryRouter MCP — Brainn.dev</title>
+  <meta name="description" content="The RegistryRouter MCP interface for source routing, policy checks, and preflight reports for AI coding agents." />
   <link rel="canonical" href="https://brainn.dev/mcp.html" />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -24,9 +24,9 @@
 
   <main class="site-shell">
     <section class="page-title">
-      <span class="eyebrow">MCP setup</span>
-      <h1>Install RegistryRouter before your agent codes.</h1>
-      <p>These docs are the first public implementation target. The package name is reserved as the intended official route; until the package is published, this page acts as the install contract and user-facing setup spec.</p>
+      <span class="eyebrow">RegistryRouter MCP</span>
+      <h1>A source-routing interface for AI coding agents.</h1>
+      <p>RegistryRouter gives agents a structured way to classify a task, identify authoritative sources, check policy, and produce a preflight report before implementation begins.</p>
     </section>
 
     <section class="section">
@@ -46,9 +46,9 @@
 }</pre></div>
         </article>
         <article class="card">
-          <span class="chip warn">Status</span>
-          <h3 style="margin-top:12px">MVP implementation path</h3>
-          <p>The first release should be local-first and deterministic. It should load the atlas catalog, expose MCP tools, read an optional policy file, and return Markdown/JSON preflight reports without requiring a hosted API.</p>
+          <span class="chip warn">Package status</span>
+          <h3 style="margin-top:12px">Implementation in progress</h3>
+          <p>The MCP package is being prepared. The interface below defines the intended agent contract: classify the work, route to trusted sources, apply policy, and return a reviewable preflight report.</p>
         </article>
       </div>
     </section>
@@ -57,25 +57,26 @@
       <div class="section-head">
         <div>
           <span class="chip info">Tools</span>
-          <h2>Initial MCP surface</h2>
-          <p>Keep the first server narrow. The product wins by making agents pause and choose better sources before implementation.</p>
+          <h2>The MCP surface</h2>
+          <p>Each tool is designed to make the agent pause, choose a better source, and explain the risk before it writes code.</p>
         </div>
       </div>
       <div class="matrix">
-        <div class="matrix-row matrix-head"><div>Tool</div><div>Purpose</div><div>Returns</div><div>Approval behavior</div></div>
-        <div class="matrix-row"><div><strong>classify_task</strong></div><div>Classify the software layer.</div><div>Layer, confidence, required checks.</div><div>No approval yet.</div></div>
-        <div class="matrix-row"><div><strong>resolve_registry</strong></div><div>Choose authoritative sources.</div><div>Primary sources, fallbacks, agent instruction.</div><div>Flags possible gates.</div></div>
-        <div class="matrix-row"><div><strong>compare_sources</strong></div><div>Compare libraries, vendors, APIs, registries.</div><div>Fit, risks, cost model, what to verify.</div><div>Required for high-risk layers.</div></div>
-        <div class="matrix-row"><div><strong>check_policy</strong></div><div>Apply local/team policy.</div><div>Allowed, blocked, requires approval.</div><div>Explicit gate.</div></div>
-        <div class="matrix-row"><div><strong>generate_preflight_report</strong></div><div>Generate human-readable report.</div><div>Markdown and JSON.</div><div>Shown before coding.</div></div>
+        <div class="matrix-row matrix-head"><div>Tool</div><div>Purpose</div><div>Returns</div><div>Review behavior</div></div>
+        <div class="matrix-row"><div><strong>classify_task</strong></div><div>Classify the software layer.</div><div>Layer, confidence, required checks.</div><div>Clarifies the source category.</div></div>
+        <div class="matrix-row"><div><strong>resolve_registry</strong></div><div>Choose authoritative sources.</div><div>Primary sources, fallbacks, agent instruction.</div><div>Highlights trusted references.</div></div>
+        <div class="matrix-row"><div><strong>compare_sources</strong></div><div>Compare libraries, vendors, APIs, registries.</div><div>Fit, risks, cost model, what to verify.</div><div>Supports source selection.</div></div>
+        <div class="matrix-row"><div><strong>check_policy</strong></div><div>Apply project or team rules.</div><div>Allowed, blocked, requires approval.</div><div>Creates explicit gates.</div></div>
+        <div class="matrix-row"><div><strong>generate_preflight_report</strong></div><div>Generate a reviewable report.</div><div>Markdown and JSON.</div><div>Shown before coding.</div></div>
       </div>
     </section>
 
     <section class="section">
       <div class="section-head">
         <div>
-          <span class="chip">Copyable prompts</span>
-          <h2>Agent instructions</h2>
+          <span class="chip">Agent instructions</span>
+          <h2>Copyable operating prompts</h2>
+          <p>Use these prompts to make an agent treat source selection as a required step instead of an afterthought.</p>
         </div>
       </div>
       <div class="grid-2">
@@ -87,7 +88,7 @@
     </section>
 
     <section class="section">
-      <div class="callout"><div class="callout-icon">!</div><div><strong>Trust rule:</strong> RegistryRouter should not install packages, execute arbitrary code, connect to sensitive systems by default, or claim live verification unless a live check actually occurred.</div></div>
+      <div class="callout"><div class="callout-icon">!</div><div><strong>Trust boundary:</strong> RegistryRouter is a routing and review layer. It should not install packages, execute arbitrary code, or connect to sensitive systems on behalf of the agent.</div></div>
     </section>
   </main>
 
