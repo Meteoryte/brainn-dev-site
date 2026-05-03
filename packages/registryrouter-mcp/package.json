@@ -22,7 +22,8 @@
     "smoke": "node ./bin/registryrouter-cli.js preflight \"Add auth to a Next.js app with Postgres and Vercel\" --stack Next.js,Postgres,Vercel"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.12.0"
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.24.0"
   },
   "engines": {
     "node": ">=18"
