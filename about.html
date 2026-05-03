@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>About — Brainn.dev</title>
-  <meta name="description" content="About Brainn.dev, RegistryRouter MCP, and the source intelligence direction for AI-assisted software development." />
+  <meta name="description" content="About Brainn.dev and RegistryRouter MCP, a source intelligence layer for AI-assisted software development." />
   <link rel="canonical" href="https://brainn.dev/about.html" />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -26,9 +26,9 @@
     <section class="page-title">
       <span class="eyebrow">About Brainn.dev</span>
       <h1>Source intelligence for AI-assisted development.</h1>
-      <p>Brainn.dev is building RegistryRouter MCP: a source-routing layer that helps AI coding agents choose authoritative registries, docs, package indexes, marketplaces, and policy paths before they write code.</p>
+      <p>Brainn.dev develops tools that help AI coding agents make better source decisions before they write code. The first product is RegistryRouter MCP, a source-routing interface for registries, documentation, package indexes, marketplaces, and policy-controlled systems.</p>
       <div class="actions">
-        <a class="button primary" href="mcp.html">Read the MCP setup</a>
+        <a class="button primary" href="mcp.html">View MCP interface</a>
         <a class="button" href="atlas.html">Explore the Atlas</a>
       </div>
     </section>
@@ -37,12 +37,12 @@
       <div class="grid-2">
         <article class="card">
           <span class="chip info">The problem</span>
-          <h3 style="margin-top:12px">Agents often fail before implementation starts.</h3>
-          <p>They can pick stale docs, invent packages, copy random examples, miss pricing constraints, ignore secret scopes, or connect tools with too much access. RegistryRouter inserts a preflight step before the code changes begin.</p>
+          <h3 style="margin-top:12px">Agents need better source judgment.</h3>
+          <p>AI coding agents can move quickly, but source selection is often fragile. A wrong package, stale API reference, unofficial example, or over-permissioned tool can create risk before implementation even starts.</p>
         </article>
         <article class="card">
           <span class="chip">The product</span>
-          <h3 style="margin-top:12px">RegistryRouter routes the agent to the right source.</h3>
+          <h3 style="margin-top:12px">RegistryRouter routes agents to trusted sources.</h3>
           <p>Given a task, stack, and constraints, RegistryRouter classifies the work, recommends authoritative sources, applies policy, and returns a preflight report with risks and approval gates.</p>
         </article>
       </div>
@@ -52,7 +52,7 @@
       <div class="section-head">
         <div>
           <span class="chip purple">Principles</span>
-          <h2>What the system should always do.</h2>
+          <h2>Built around trust, authority, and review.</h2>
         </div>
       </div>
       <div class="grid-3">
@@ -63,19 +63,24 @@
     </section>
 
     <section class="section">
-      <div class="matrix">
-        <div class="matrix-row matrix-head"><div>Stage</div><div>Now</div><div>Next</div><div>Later</div></div>
-        <div class="matrix-row"><div><strong>Reference</strong></div><div>Static atlas and examples.</div><div>Cleaner atlas landing and JSON catalog.</div><div>Versioned registry intelligence.</div></div>
-        <div class="matrix-row"><div><strong>MCP</strong></div><div>Setup contract and tool design.</div><div>Local-first package implementation.</div><div>Hosted/live metadata option.</div></div>
-        <div class="matrix-row"><div><strong>Policy</strong></div><div>Conceptual approval rules.</div><div>Local policy file support.</div><div>Team/enterprise allowlists, denylists, and audit trails.</div></div>
-        <div class="matrix-row"><div><strong>API</strong></div><div>Planned product surface.</div><div>Private beta after MCP stabilizes.</div><div>Commercial source-routing API.</div></div>
+      <div class="section-head">
+        <div>
+          <span class="chip info">Product direction</span>
+          <h2>From reference atlas to agent-facing interface.</h2>
+          <p>Brainn.dev starts with a structured registry atlas and exposes that knowledge through RegistryRouter MCP. The longer-term direction is a source-intelligence layer that can support local agents, team policies, private catalogs, and API-based integrations.</p>
+        </div>
+      </div>
+      <div class="grid-3">
+        <article class="card"><h3>Registry Atlas</h3><p>A curated map of registries, docs, catalogs, package indexes, marketplaces, and risk checks across the software stack.</p></article>
+        <article class="card"><h3>RegistryRouter MCP</h3><p>An agent-facing interface for classifying tasks, resolving trusted sources, applying policy, and generating preflight reports.</p></article>
+        <article class="card"><h3>Policy-aware routing</h3><p>A framework for approved sources, blocked tools, human approval gates, and organization-specific implementation rules.</p></article>
       </div>
     </section>
 
     <section class="section">
       <div class="callout">
         <div class="callout-icon">@</div>
-        <div><strong>Contact:</strong> once email forwarding is configured, Brainn.dev should use <span class="mono">hello@brainn.dev</span> for early access, feedback, and pilot conversations.</div>
+        <div><strong>Contact:</strong> early-access and pilot inquiries will be available through <span class="mono">hello@brainn.dev</span> once email forwarding is configured.</div>
       </div>
     </section>
   </main>
