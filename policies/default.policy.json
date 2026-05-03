@@ -1,0 +1,31 @@
+{
+  "id": "default",
+  "name": "Default RegistryRouter Policy",
+  "preferredRegistries": [
+    "shadcn-ui",
+    "radix-ui",
+    "npm",
+    "pypi",
+    "authjs",
+    "terraform-registry"
+  ],
+  "approvedRegistries": [],
+  "blockedRegistries": [],
+  "requireApprovalForLayers": [
+    "auth_identity",
+    "payments_billing",
+    "infrastructure_platform",
+    "ai_models_tools"
+  ],
+  "requireApprovalForCostModels": [
+    "paid_commercial"
+  ],
+  "requireApprovalForRiskChecks": [
+    "data_access",
+    "secret_scope",
+    "auth_scope",
+    "human_approval",
+    "customer_data",
+    "cloud_permissions"
+  ]
+}
