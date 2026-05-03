@@ -1,0 +1,228 @@
+{
+  "version": "0.0.1",
+  "updated_at": "2026-05-03",
+  "layers": [
+    {
+      "id": "ui_frontend",
+      "label": "UI / frontend",
+      "keywords": ["ui", "component", "button", "modal", "command palette", "dashboard", "react", "tailwind", "shadcn", "radix", "accessibility", "chart", "visualization"]
+    },
+    {
+      "id": "packages_dependencies",
+      "label": "Packages / dependencies",
+      "keywords": ["install", "package", "dependency", "library", "npm", "pip", "pypi", "maven", "nuget", "crate", "sdk"]
+    },
+    {
+      "id": "auth_identity",
+      "label": "Auth / identity",
+      "keywords": ["auth", "authentication", "login", "oauth", "sso", "session", "jwt", "identity", "clerk", "auth.js", "nextauth"]
+    },
+    {
+      "id": "payments_billing",
+      "label": "Payments / billing",
+      "keywords": ["payment", "payments", "billing", "subscription", "stripe", "checkout", "invoice", "refund", "tax"]
+    },
+    {
+      "id": "containers_deployment",
+      "label": "Containers / deployment",
+      "keywords": ["docker", "container", "image", "oci", "deploy", "deployment", "kubernetes", "helm", "cloud run", "ecs", "eks"]
+    },
+    {
+      "id": "infrastructure_platform",
+      "label": "Infrastructure / platform",
+      "keywords": ["terraform", "pulumi", "infrastructure", "aws", "gcp", "azure", "s3", "iam", "vpc", "helm", "operator"]
+    },
+    {
+      "id": "apis_integrations",
+      "label": "APIs / integrations",
+      "keywords": ["api", "webhook", "integration", "postman", "rapidapi", "openapi", "zapier", "connector", "rate limit"]
+    },
+    {
+      "id": "ai_models_tools",
+      "label": "AI / models / tools",
+      "keywords": ["ai", "llm", "model", "embedding", "mcp", "agent", "tool", "server", "prompt", "vector"]
+    },
+    {
+      "id": "security_compliance",
+      "label": "Security / compliance",
+      "keywords": ["security", "vulnerability", "cve", "license", "sbom", "secret", "secrets", "permission", "scope", "compliance", "privacy"]
+    },
+    {
+      "id": "observability",
+      "label": "Observability",
+      "keywords": ["observability", "monitoring", "logging", "error", "sentry", "datadog", "opentelemetry", "metrics", "tracing"]
+    }
+  ],
+  "registries": [
+    {
+      "id": "shadcn-ui",
+      "name": "shadcn/ui",
+      "url": "https://ui.shadcn.com",
+      "layer": "ui_frontend",
+      "cost_model": "free_open",
+      "authority_level": "official_install_source",
+      "best_for": "Source-owned React components",
+      "use_when": "Use when the app team wants editable component source that can be adapted to an existing design system.",
+      "avoid_when": "Avoid treating the default visual style as the final product design.",
+      "risk_checks": ["accessibility", "dependencies_added", "visual_fit", "license", "framework_compatibility"],
+      "tags": ["react", "tailwind", "components", "source-owned"]
+    },
+    {
+      "id": "radix-ui",
+      "name": "Radix UI",
+      "url": "https://www.radix-ui.com",
+      "layer": "ui_frontend",
+      "cost_model": "free_open",
+      "authority_level": "official_docs_source",
+      "best_for": "Accessible low-level React primitives",
+      "use_when": "Use when interaction behavior and accessibility are more important than prebuilt visual styling.",
+      "risk_checks": ["accessibility", "visual_fit", "dependencies_added", "framework_compatibility"],
+      "tags": ["react", "accessibility", "primitives"]
+    },
+    {
+      "id": "react-aria",
+      "name": "React Aria Components",
+      "url": "https://react-spectrum.adobe.com/react-aria",
+      "layer": "ui_frontend",
+      "cost_model": "free_open",
+      "authority_level": "official_docs_source",
+      "best_for": "Accessibility-first React interactions",
+      "use_when": "Use for complex accessible components, keyboard interactions, and internationalized UI behavior.",
+      "risk_checks": ["accessibility", "framework_compatibility", "bundle_impact", "visual_fit"],
+      "tags": ["react", "accessibility", "components"]
+    },
+    {
+      "id": "npm",
+      "name": "npm",
+      "url": "https://www.npmjs.com",
+      "layer": "packages_dependencies",
+      "cost_model": "free_open",
+      "authority_level": "official_install_source",
+      "best_for": "JavaScript and TypeScript packages",
+      "use_when": "Use for package identity, install commands, versions, maintainers, and package metadata in JS/TS projects.",
+      "risk_checks": ["package_identity", "version_compatibility", "license", "security_advisories", "maintenance", "supply_chain"],
+      "tags": ["javascript", "typescript", "node", "packages"]
+    },
+    {
+      "id": "pypi",
+      "name": "PyPI",
+      "url": "https://pypi.org",
+      "layer": "packages_dependencies",
+      "cost_model": "free_open",
+      "authority_level": "official_install_source",
+      "best_for": "Python packages",
+      "use_when": "Use for Python package identity, versions, release metadata, and project links.",
+      "risk_checks": ["package_identity", "version_compatibility", "license", "security_advisories", "maintenance", "supply_chain"],
+      "tags": ["python", "packages"]
+    },
+    {
+      "id": "authjs",
+      "name": "Auth.js",
+      "url": "https://authjs.dev",
+      "layer": "auth_identity",
+      "cost_model": "free_open",
+      "authority_level": "official_docs_source",
+      "best_for": "Open-source authentication for JavaScript apps",
+      "use_when": "Use when the team wants source-controlled auth logic and provider integrations without adopting a hosted auth SaaS by default.",
+      "risk_checks": ["session_model", "oauth_scopes", "secret_scope", "data_access", "version_compatibility", "rollback"],
+      "tags": ["auth", "nextjs", "javascript", "oauth"]
+    },
+    {
+      "id": "clerk",
+      "name": "Clerk",
+      "url": "https://clerk.com/docs",
+      "layer": "auth_identity",
+      "cost_model": "freemium",
+      "authority_level": "official_docs_source",
+      "best_for": "Hosted authentication and user management",
+      "use_when": "Use when the team wants managed auth UI, hosted user management, and faster SaaS authentication setup.",
+      "risk_checks": ["pricing", "data_access", "privacy", "region_availability", "secret_scope", "human_approval"],
+      "tags": ["auth", "saas", "nextjs", "identity"]
+    },
+    {
+      "id": "stripe-docs",
+      "name": "Stripe Docs",
+      "url": "https://docs.stripe.com",
+      "layer": "payments_billing",
+      "cost_model": "paid_commercial",
+      "authority_level": "official_docs_source",
+      "best_for": "Payments, subscriptions, checkout, billing, and webhooks",
+      "use_when": "Use as implementation authority for Stripe APIs, payment flows, billing models, and webhook behavior.",
+      "risk_checks": ["pricing", "api_key_handling", "webhook_security", "customer_data", "compliance", "human_approval", "rollback"],
+      "tags": ["payments", "billing", "subscriptions", "webhooks"]
+    },
+    {
+      "id": "docker-hub",
+      "name": "Docker Hub",
+      "url": "https://hub.docker.com",
+      "layer": "containers_deployment",
+      "cost_model": "freemium",
+      "authority_level": "official_install_source",
+      "best_for": "Container image discovery and base images",
+      "use_when": "Use for official Docker images, image tags, base images, and public container discovery.",
+      "risk_checks": ["image_origin", "tag_pinning", "digest_pinning", "security_advisories", "maintenance", "supply_chain"],
+      "tags": ["docker", "containers", "oci"]
+    },
+    {
+      "id": "terraform-registry",
+      "name": "Terraform Registry",
+      "url": "https://registry.terraform.io",
+      "layer": "infrastructure_platform",
+      "cost_model": "free_open",
+      "authority_level": "official_install_source",
+      "best_for": "Terraform providers and modules",
+      "use_when": "Use for Terraform provider docs, reusable modules, variables, examples, and version constraints.",
+      "risk_checks": ["provider_version", "module_variables", "cloud_permissions", "state_management", "rollback", "human_approval"],
+      "tags": ["terraform", "iac", "infrastructure"]
+    },
+    {
+      "id": "postman-api-network",
+      "name": "Postman API Network",
+      "url": "https://www.postman.com/explore",
+      "layer": "apis_integrations",
+      "cost_model": "freemium",
+      "authority_level": "trusted_discovery_source",
+      "best_for": "API discovery, collections, examples, and exploration",
+      "use_when": "Use for exploring APIs and collections, then verify implementation details against official vendor docs.",
+      "avoid_when": "Avoid treating third-party collections as final implementation authority without checking official docs.",
+      "risk_checks": ["auth_method", "rate_limits", "schema_authority", "pricing", "data_access"],
+      "tags": ["api", "collections", "openapi", "discovery"]
+    },
+    {
+      "id": "official-mcp-registry",
+      "name": "Official MCP Registry",
+      "url": "https://registry.modelcontextprotocol.io",
+      "layer": "ai_models_tools",
+      "cost_model": "free_open",
+      "authority_level": "official_marketplace",
+      "best_for": "MCP server discovery and metadata",
+      "use_when": "Use to discover MCP servers and metadata, then verify the server source, permissions, transport, and installation path.",
+      "risk_checks": ["tool_identity", "permissions", "data_access", "transport", "auth_scope", "prompt_injection", "human_approval"],
+      "tags": ["mcp", "agents", "tools"]
+    },
+    {
+      "id": "sentry-docs",
+      "name": "Sentry Docs",
+      "url": "https://docs.sentry.io",
+      "layer": "observability",
+      "cost_model": "freemium",
+      "authority_level": "official_docs_source",
+      "best_for": "Application error monitoring and performance instrumentation",
+      "use_when": "Use for SDK installation, framework integration, source maps, tracing, and privacy controls.",
+      "risk_checks": ["pricing", "pii_scrubbing", "data_access", "source_maps", "framework_compatibility", "human_approval"],
+      "tags": ["observability", "errors", "monitoring", "sentry"]
+    },
+    {
+      "id": "opentelemetry",
+      "name": "OpenTelemetry",
+      "url": "https://opentelemetry.io/docs/",
+      "layer": "observability",
+      "cost_model": "free_open",
+      "authority_level": "official_docs_source",
+      "best_for": "Vendor-neutral traces, metrics, and logs instrumentation",
+      "use_when": "Use when the team wants open standards for telemetry and has a destination/backend strategy.",
+      "risk_checks": ["runtime_compatibility", "backend_choice", "data_access", "performance", "maintenance"],
+      "tags": ["observability", "open-source", "tracing", "metrics"]
+    }
+  ]
+}
