@@ -1,0 +1,31 @@
+{
+  "name": "@brainn/registryrouter-mcp",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Local-first RegistryRouter MCP server for source routing and registry intelligence.",
+  "type": "module",
+  "bin": {
+    "registryrouter-mcp": "./bin/server.js",
+    "registryrouter": "./bin/registryrouter-cli.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "data",
+    "README.md"
+  ],
+  "scripts": {
+    "start": "node ./bin/server.js",
+    "classify": "node ./bin/registryrouter-cli.js classify",
+    "resolve": "node ./bin/registryrouter-cli.js resolve",
+    "preflight": "node ./bin/registryrouter-cli.js preflight",
+    "smoke": "node ./bin/registryrouter-cli.js preflight \"Add auth to a Next.js app with Postgres and Vercel\" --stack Next.js,Postgres,Vercel"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.24.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
