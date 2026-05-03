@@ -1,0 +1,14 @@
+{
+  "name": "brainn-dev-site",
+  "private": true,
+  "description": "Brainn.dev static site and RegistryRouter MCP workspace.",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "registryrouter:classify": "node packages/registryrouter-mcp/bin/registryrouter-cli.js classify",
+    "registryrouter:resolve": "node packages/registryrouter-mcp/bin/registryrouter-cli.js resolve",
+    "registryrouter:preflight": "node packages/registryrouter-mcp/bin/registryrouter-cli.js preflight",
+    "registryrouter:smoke": "node packages/registryrouter-mcp/bin/registryrouter-cli.js preflight \"Add auth to a Next.js app with Postgres and Vercel\" --stack Next.js,Postgres,Vercel"
+  }
+}
