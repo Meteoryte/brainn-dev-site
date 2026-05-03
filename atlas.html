@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Registry Atlas — Brainn.dev</title>
+  <meta name="description" content="A cleaner entry point to the Brainn.dev full-stack registry atlas for RegistryRouter MCP and AI coding agents." />
+  <link rel="canonical" href="https://brainn.dev/atlas.html" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-inner">
+      <a class="brand" href="index.html" aria-label="Brainn.dev home"><span class="brand-mark">B</span><span>brainn.dev</span></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a class="active" href="atlas.html">Atlas</a>
+        <a href="mcp.html">MCP</a>
+        <a href="examples.html">Examples</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="site-shell">
+    <section class="page-title">
+      <span class="eyebrow">Registry Atlas</span>
+      <h1>A source map for AI coding agents.</h1>
+      <p>The atlas is the knowledge foundation behind RegistryRouter MCP. It helps agents identify the right registry, package index, documentation source, marketplace, catalog, or approval path before implementation begins.</p>
+      <div class="actions">
+        <a class="button primary" href="full_stack_registry_llm_reference.html">Open full reference</a>
+        <a class="button" href="mcp.html">Use through MCP</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <span class="chip info">Why it exists</span>
+          <h2>Agents need source judgment before code judgment.</h2>
+          <p>The full reference is intentionally broad. This page is the cleaner product-facing entry point: what the atlas is, how agents should use it, and where the system goes next.</p>
+        </div>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <span class="num">01</span>
+          <h3>Classify the layer</h3>
+          <p>Route the task to UI, dependencies, containers, infrastructure, APIs, auth, AI tools, security, data, or internal policy before choosing a source.</p>
+        </article>
+        <article class="card">
+          <span class="num">02</span>
+          <h3>Prefer authority</h3>
+          <p>Use official registries, docs, package indexes, vendor references, and internal catalogs as implementation authority. Treat examples as discovery unless verified.</p>
+        </article>
+        <article class="card">
+          <span class="num">03</span>
+          <h3>Expose risk</h3>
+          <p>Return maintenance, license, pricing, secrets, data access, compatibility, and approval checks before the agent changes the codebase.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <span class="chip purple">Coverage</span>
+          <h2>Registry layers covered by the reference.</h2>
+          <p>The current atlas is a curated static map. The next step is to convert these entries into versioned JSON for the MCP server and future API.</p>
+        </div>
+      </div>
+      <div class="matrix">
+        <div class="matrix-row matrix-head"><div>Layer</div><div>Examples</div><div>Agent question</div><div>Primary risk</div></div>
+        <div class="matrix-row"><div><strong>UI / frontend</strong></div><div>shadcn/ui, Radix, React Aria, MUI</div><div>Should this be copied, installed, or custom-built?</div><div>Accessibility and visual fit.</div></div>
+        <div class="matrix-row"><div><strong>Packages</strong></div><div>npm, PyPI, Maven, NuGet, crates.io</div><div>What is the official package and current install path?</div><div>Package identity and supply chain.</div></div>
+        <div class="matrix-row"><div><strong>Infra / deploy</strong></div><div>Docker Hub, Terraform Registry, Artifact Hub</div><div>Which provider, module, image, or chart is authoritative?</div><div>Permissions, versioning, rollback.</div></div>
+        <div class="matrix-row"><div><strong>APIs / SaaS</strong></div><div>Postman, official API docs, cloud marketplaces</div><div>Which docs define auth, rate limits, schemas, and pricing?</div><div>Cost, data access, lock-in.</div></div>
+        <div class="matrix-row"><div><strong>AI / MCP / tools</strong></div><div>MCP registries, model hubs, tool catalogs</div><div>Can this tool be trusted with the requested data?</div><div>Permissions and prompt-injection surface.</div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="grid-2">
+        <article class="terminal">
+          <div class="terminal-bar"><span>atlas → RegistryRouter data</span><span class="dot-row"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+          <div class="terminal-body"><pre>{
+  "registry": "shadcn/ui",
+  "layer": "ui_frontend",
+  "authority_level": "official_install_source",
+  "cost_model": "free_open",
+  "best_for": "source-owned UI components",
+  "risk_checks": [
+    "accessibility",
+    "dependencies_added",
+    "visual_fit",
+    "license"
+  ]
+}</pre></div>
+        </article>
+        <article class="card">
+          <span class="chip warn">Next data step</span>
+          <h3 style="margin-top:12px">Convert the atlas into JSON.</h3>
+          <p>The original HTML remains the human-readable reference. The MCP package should consume a normalized catalog with stable IDs, layers, authority levels, cost models, risk checks, tags, and review dates.</p>
+          <div class="actions compact-actions">
+            <a class="button" href="full_stack_registry_llm_reference.html">View original atlas</a>
+            <a class="button" href="examples.html">See preflight examples</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="callout">
+        <div class="callout-icon">→</div>
+        <div><strong>Product rule:</strong> the atlas is not the product by itself. RegistryRouter turns it into an agent-callable routing layer that produces source recommendations, policy checks, and preflight reports.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="site-shell">The full atlas remains available as a long-form reference while the MCP catalog becomes structured data.</div></footer>
+</body>
+</html>
